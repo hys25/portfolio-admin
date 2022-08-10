@@ -23,12 +23,12 @@ export function StyledInput({
         onChange={(e) => setValue(e.target.value)}
         value={value}
         placeholder={placeholder}
-        className={`text-white px-5 w-full h-[60px] text-[14px] appearance-none focus:outline-none bg-greyDark placeholder:text-white  ${className}`}
+        className={`text-white px-5 w-full h-[60px] text-14 appearance-none focus:outline-none bg-greyDark placeholder:text-white  ${className}`}
         {...props}
       />
-      {!!login ?
-        <span className="absolute block w-full h-[60px] bg-greyDark left-0 top-0 z-[-1]"/>
-      : null}
+      {login ? (
+        <span className="absolute block w-full h-[60px] bg-greyDark left-0 top-0 z-[-1]" />
+      ) : null}
     </div>
   );
 }

@@ -15,6 +15,13 @@ module.exports = {
         grey: '#A8A8A8',
         greyDark: '#323130',
       },
+      fontSize: {
+        10: '10px',
+        12: '12px',
+        14: '14px',
+        16: '16px',
+        20: '20px',
+      },
     },
   },
   plugins: [],
