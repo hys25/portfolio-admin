@@ -39,5 +39,5 @@ export function Checkbox({
         {name}
       </p>
     </div>
-  );
+  )
 }

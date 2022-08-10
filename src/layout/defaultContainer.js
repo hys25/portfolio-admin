@@ -1,4 +1,4 @@
-import Nav from "../elements/Nav";
+import Nav from "../elements/Nav"
 
 const dummyUser = {
   name: "Halyna Pravdych",
@@ -31,7 +31,7 @@ function DefaultContainer({ authorized, ...props }) {
       ) : null}
       {props.children}
     </div>
-  )
+  );
 }
 
-export default DefaultContainer
+export default DefaultContainer;

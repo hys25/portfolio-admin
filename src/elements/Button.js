@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 export function ButtonLink({ href, children, className, onClick, ...props }) {
   return (

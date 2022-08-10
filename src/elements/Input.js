@@ -23,7 +23,7 @@ export function StyledInput({
         onChange={(e) => setValue(e.target.value)}
         value={value}
         placeholder={placeholder}
-        className={`text-white px-5 w-full h-[60px] text-14 appearance-none focus:outline-none bg-greyDark placeholder:text-white  ${className}`}
+        className={`text-white px-5 w-full h-[60px] text-14 appearance-none focus:outline-none bg-greyDark placeholder:text-grey  ${className}`}
         {...props}
       />
       {login ? (
@@ -51,6 +51,7 @@ export function AuthInput({
         onChange={(e) => setValue(e.target.value)}
         value={value}
         login={login}
+        setValue={setValue}
         className={`mb-[10px] ${className}`}
       />
       {children}
@@ -66,6 +67,7 @@ export function PasswordInput({ setValue, className, placeholder, ...props }) {
         type={type}
         placeholder={placeholder}
         onChange={(e) => setValue(e.target.value)}
+        setValue={setValue}
         id="passwordInput"
         {...props}
       />

@@ -11,7 +11,7 @@ function Projects() {
         <Link to="/registration">registration</Link>
       </ContentContainer>
     </DefaultContainer>
-  )
+  );
 }
 
 export default Projects

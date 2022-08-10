@@ -12,4 +12,4 @@ function Nav({ navItems, ...props }) {
     </ul>
   );
 }
-export default Nav
+export default Nav;
