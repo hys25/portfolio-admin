@@ -5,32 +5,45 @@ import { Checkbox } from "../elements/Checkbox"
 import { Button, ButtonLink } from "../elements/Button"
 
 function Login() {
-  const [login, setLogin] = useState("")
-  const [password, setPassword] = useState("")
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  })
+  const {email, password} = formData
 
-  const handleSubmit = (e) => {
-    // e.preventDefault()
+  const onChange = (e) => {
+    console.log('email e.target.name', e)
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }))
   }
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+  };
 
   return (
     <DefaultContainer>
       <form
-        onSubmit={handleSubmit}
-        method="post"
+        onSubmit={onSubmit}
         className="w-full max-w-[400px] m-auto"
       >
         <AuthInput
-          placeholder="Login"
-          type="text"
-          value={login}
-          setValue={setLogin}
+          value={email}
+          onChange={onChange}
+          type="email"
+          name="name"
+          id="email"
+          placeholder="Email"
           login
         />
         <PasswordInput
-          placeholder="Password"
-          type="password"
           value={password}
-          setValue={setPassword}
+          onChange={onChange}
+          name="password"
+          id="password"
+          placeholder="Password"
         />
         <div className="flex justify-between mt-[20px] mb-[25px]">
           <Checkbox name="Remember me">Remember me</Checkbox>
@@ -39,7 +52,7 @@ function Login() {
         <Button type="submit">Sign in</Button>
         <div className="flex items-center justify-center mt-[10px] text-grey">
           Don't have an account yet?{" "}
-          <ButtonLink href="/" className="ml-[10px]">
+          <ButtonLink href="/register" className="ml-[10px]">
             Register now
           </ButtonLink>
         </div>

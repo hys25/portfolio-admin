@@ -3,14 +3,15 @@ import { ReactComponent as ShowPasswordIcon } from "../assets/icons/password-ico
 import { ReactComponent as HidenPasswordIcon } from "../assets/icons/password-icon-eye-24-closed.svg";
 
 export function StyledInput({
-  setValue,
   value,
+  onChange,
+  type,
+  name,
   className,
   classNameWrapper,
   children,
   placeholder,
   login = false,
-  type = "text",
   ...props
 }) {
   return (
@@ -19,9 +20,10 @@ export function StyledInput({
       className={`flex relative items-center text-black w-full ${classNameWrapper}`}
     >
       <input
-        type={type}
-        onChange={(e) => setValue(e.target.value)}
         value={value}
+        onChange={onChange}
+        name={name}
+        type={type}
         placeholder={placeholder}
         className={`text-white px-5 w-full h-[60px] text-14 appearance-none focus:outline-none bg-greyDark placeholder:text-grey  ${className}`}
         {...props}
@@ -34,10 +36,13 @@ export function StyledInput({
 }
 
 export function AuthInput({
-  placeholder,
-  setValue,
   value,
-  className,
+  onChange,
+  type = 'text',
+  name,
+  placeholder,
+  className = '',
+  classNameWrapper = '',
   children,
   bgColor,
   login,
@@ -46,29 +51,31 @@ export function AuthInput({
   return (
     <div {...props} className="flex relative items-center text-black w-full">
       <StyledInput
-        placeholder={placeholder}
-        type="text"
-        onChange={(e) => setValue(e.target.value)}
         value={value}
-        login={login}
-        setValue={setValue}
+        onChange={onChange}
+        type={type}
+        name={name}
+        placeholder={placeholder}
         className={`mb-[10px] ${className}`}
+        login={login}
       />
       {children}
     </div>
-  );
+  )
 }
 
-export function PasswordInput({ setValue, className, placeholder, ...props }) {
-  const [type, setType] = useState("password");
+export function PasswordInput({ onChange, value, className, placeholder, ...props }) {
+  const [type, setType] = useState("password")
   return (
     <div className={`relative flex items-center ${className}`}>
-      <AuthInput
+      <StyledInput
+        value={value}
+        onChange={onChange}
         type={type}
+        name={name}
         placeholder={placeholder}
-        onChange={(e) => setValue(e.target.value)}
-        setValue={setValue}
         id="passwordInput"
+        className={`mb-[10px] ${className}`}
         {...props}
       />
       <div className="absolute right-4 top-5 mr-1 max-h-5 cursor-pointer">
