@@ -9,8 +9,10 @@ export function Checkbox({
 }) {
   return (
     <div
+      onKeyDown={onChange}
       onClick={onChange}
       className={`flex items-center group cursor-pointer ${containerClassName}`}
+      role="presentation"
     >
       <div className="relative w-6 h-6 min-w-[24px]">
         <input
@@ -39,5 +41,5 @@ export function Checkbox({
         {name}
       </p>
     </div>
-  )
+  );
 }

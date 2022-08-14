@@ -1,4 +1,4 @@
-import Nav from "../elements/Nav"
+import Nav from "../elements/Nav";
 
 const dummyUser = {
   name: "Halyna Pravdych",
@@ -22,7 +22,7 @@ function DefaultContainer({ authorized, ...props }) {
             <h1 className="ml-[50px] font-bold text-14 uppercase">
               {dummyUser.name}
             </h1>
-            <Nav navItems={dummyNav}></Nav>
+            <Nav navItems={dummyNav} />
           </div>
           <h2 className="ml-[50px] uppercase font-bold text-14">
             {dummyUser.position.replace(" ", "_")}

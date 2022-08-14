@@ -1,10 +1,8 @@
-import {useRouter} from 'next/router'
-import DefaultContainer from "../../layout/DefaultContainer"
-import ContentContainer from "../../layout/ContentContainer"
+import DefaultContainer from "../layout/DefaultContainer";
+import ContentContainer from "../layout/ContentContainer";
+import Title from "../elements/Title";
 
 function Project() {
-  const router = useRouter()
-  console.log({router})
   return (
     <DefaultContainer authorized>
       <ContentContainer>
@@ -14,4 +12,4 @@ function Project() {
   );
 }
 
-export default Project
+export default Project;

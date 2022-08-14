@@ -1,4 +1,4 @@
-function Nav({ navItems, ...props }) {
+function Nav({ navItems }) {
   return (
     <ul className="h-full flex flex-col mt-[50px] text-white">
       {navItems.map((item) => (

@@ -1,34 +1,30 @@
-import { useState } from "react"
-import DefaultContainer from "./../layout/DefaultContainer"
-import { AuthInput, PasswordInput } from "../elements/Input"
-import { Checkbox } from "../elements/Checkbox"
-import { Button, ButtonLink } from "../elements/Button"
+import { useState } from "react";
+import DefaultContainer from "../layout/DefaultContainer";
+import { AuthInput, PasswordInput } from "../elements/Input";
+import { Checkbox } from "../elements/Checkbox";
+import { Button, ButtonLink } from "../elements/Button";
 
 function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  })
-  const {email, password} = formData
+  });
+  const { email, password } = formData;
 
   const onChange = (e) => {
-    console.log('email e.target.name', e)
     setFormData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
-    }))
-  }
+    }));
+  };
 
   const onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
   };
 
   return (
     <DefaultContainer>
-      <form
-        onSubmit={onSubmit}
-        className="w-full max-w-[400px] m-auto"
-      >
+      <form onSubmit={onSubmit} className="w-full max-w-[400px] m-auto">
         <AuthInput
           value={email}
           onChange={onChange}
@@ -51,7 +47,7 @@ function Login() {
         </div>
         <Button type="submit">Sign in</Button>
         <div className="flex items-center justify-center mt-[10px] text-grey">
-          Don't have an account yet?{" "}
+          Don&apos;t have an account yet?{" "}
           <ButtonLink href="/register" className="ml-[10px]">
             Register now
           </ButtonLink>
@@ -61,4 +57,4 @@ function Login() {
   );
 }
 
-export default Login
+export default Login;

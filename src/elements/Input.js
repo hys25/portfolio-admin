@@ -38,11 +38,11 @@ export function StyledInput({
 export function AuthInput({
   value,
   onChange,
-  type = 'text',
+  type = "text",
   name,
   placeholder,
-  className = '',
-  classNameWrapper = '',
+  className = "",
+  classNameWrapper = "",
   children,
   bgColor,
   login,
@@ -58,14 +58,22 @@ export function AuthInput({
         placeholder={placeholder}
         className={`mb-[10px] ${className}`}
         login={login}
+        classNameWrapper={classNameWrapper}
       />
       {children}
     </div>
-  )
+  );
 }
 
-export function PasswordInput({ onChange, value, className, placeholder, ...props }) {
-  const [type, setType] = useState("password")
+export function PasswordInput({
+  onChange,
+  value,
+  className,
+  placeholder,
+  name,
+  ...props
+}) {
+  const [type, setType] = useState("password");
   return (
     <div className={`relative flex items-center ${className}`}>
       <StyledInput
