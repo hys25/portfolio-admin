@@ -2,20 +2,19 @@ import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import { signUp, reset } from "../features/auth/authSlice"
+import { signIn, reset } from "../features/auth/authSlice"
 import DefaultContainer from "../layout/DefaultContainer"
 import { AuthInput, PasswordInput } from "../elements/Input"
-import { Button } from "../elements/Button"
+import { Checkbox } from "../elements/Checkbox"
+import { Button, ButtonLink } from "../elements/Button"
 import Spinner from "../layout/Spinner"
 
-function SignUp() {
+function SignIn() {
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password: "",
-    password2: "",
   })
-  const { username, email, password, password2 } = formData
+  const { email, password } = formData
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -25,10 +24,12 @@ function SignUp() {
   )
 
   useEffect(() => {
+    const userLS = localStorage.getItem("user")
+
     if (isError) {
       toast.error(message)
     }
-    if (isSuccess || user) {
+    if (isSuccess || userLS) {
       navigate("/")
     }
     dispatch(reset())
@@ -44,17 +45,12 @@ function SignUp() {
   const onSubmit = (e) => {
     e.preventDefault()
 
-    if (password !== password2) {
-      toast.error("Passwords do not match")
-    } else {
-      const userData = {
-        username,
-        email,
-        password,
-      }
-
-      dispatch(signUp(userData))
+    const userData = {
+      email,
+      password,
     }
+
+    dispatch(signIn(userData))
   }
 
   if (isLoading) {
@@ -64,14 +60,6 @@ function SignUp() {
   return (
     <DefaultContainer>
       <form onSubmit={onSubmit} className="w-full max-w-[400px] m-auto">
-        <AuthInput
-          value={username}
-          name="username"
-          id="username"
-          placeholder="Username"
-          login
-          onChange={onChange}
-        />
         <AuthInput
           value={email}
           onChange={onChange}
@@ -84,21 +72,24 @@ function SignUp() {
         <PasswordInput
           value={password}
           onChange={onChange}
-          placeholder="Password"
           name="password"
           id="password"
+          placeholder="Password"
         />
-        <PasswordInput
-          value={password2}
-          onChange={onChange}
-          placeholder="Confirm password"
-          name="password2"
-          id="password2"
-        />
-        <Button type="submit">Sign up</Button>
+        <div className="flex justify-between mt-[20px] mb-[25px]">
+          <Checkbox name="Remember me">Remember me</Checkbox>
+          <ButtonLink href="/">Forgot password</ButtonLink>
+        </div>
+        <Button type="submit">Sign in</Button>
+        <div className="flex items-center justify-center mt-[10px] text-grey">
+          Don&apos;t have an account yet?{" "}
+          <ButtonLink href="/register" className="ml-[10px]">
+            Register now
+          </ButtonLink>
+        </div>
       </form>
     </DefaultContainer>
   )
 }
 
-export default SignUp
+export default SignIn

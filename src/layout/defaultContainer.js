@@ -1,9 +1,12 @@
-import Nav from "../elements/Nav";
+import { useSelector, useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { logOut, reset } from "../features/auth/authSlice"
+import Nav from "../elements/Nav"
 
 const dummyUser = {
   name: "Halyna Pravdych",
   position: "frontend dev",
-};
+}
 const dummyNav = [
   "all projects",
   "new project",
@@ -11,9 +14,19 @@ const dummyNav = [
   "update cv",
   "messages",
   "settings",
-];
+]
 
 function DefaultContainer({ authorized, ...props }) {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.auth)
+
+  const onLogOut = () => {
+    dispatch(reset())
+    dispatch(logOut())
+    navigate("/auth/sign-in")
+  }
+
   return (
     <div className="h-screen w-screen flex py-[40px] bg-black">
       {authorized ? (
@@ -24,14 +37,26 @@ function DefaultContainer({ authorized, ...props }) {
             </h1>
             <Nav navItems={dummyNav} />
           </div>
-          <h2 className="ml-[50px] uppercase font-bold text-14">
-            {dummyUser.position.replace(" ", "_")}
-          </h2>
+          <div className="ml-[50px] flex flex-col">
+            {user && (
+              <div
+                className="mb-3 font-bold text-14 uppercase cursor-pointer"
+                onClick={onLogOut}
+                onKeyPress={onLogOut}
+                role="presentation"
+              >
+                Log out
+              </div>
+            )}
+            <h2 className="uppercase font-bold text-14 text-grey">
+              {dummyUser.position.replace(" ", "_")}
+            </h2>
+          </div>
         </div>
       ) : null}
       {props.children}
     </div>
-  );
+  )
 }
 
-export default DefaultContainer;
+export default DefaultContainer

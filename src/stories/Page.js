@@ -1,10 +1,10 @@
-import React from "react";
+import React from "react"
 
-import Header from "./Header";
-import "./page.css";
+import Header from "./Header"
+import "./page.css"
 
 const Page = () => {
-  const [user, setUser] = React.useState();
+  const [user, setUser] = React.useState()
 
   return (
     <article>
@@ -83,7 +83,7 @@ const Page = () => {
         </div>
       </section>
     </article>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

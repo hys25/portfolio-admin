@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import DefaultContainer from "../layout/DefaultContainer";
-import ContentContainer from "../layout/ContentContainer";
-import { Title } from "../elements/Title";
+import { Link } from "react-router-dom"
+import DefaultContainer from "../layout/DefaultContainer"
+import ContentContainer from "../layout/ContentContainer"
+import { Title } from "../elements/Title"
 
 const dummyProjects = [
   {
@@ -40,7 +40,7 @@ const dummyProjects = [
     imageUrl: "#",
     projectWebsite: "https://github.com/hys25/portfolio-admin",
   },
-];
+]
 
 function Projects() {
   return (
@@ -60,12 +60,9 @@ function Projects() {
             </Link>
           ))}
         </div>
-        <Link to="/about">About</Link>
-        <Link to="/login">login</Link>
-        <Link to="/registration">registration</Link>
       </ContentContainer>
     </DefaultContainer>
-  );
+  )
 }
 
-export default Projects;
+export default Projects

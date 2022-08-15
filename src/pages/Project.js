@@ -1,6 +1,6 @@
-import DefaultContainer from "../layout/DefaultContainer";
-import ContentContainer from "../layout/ContentContainer";
-import Title from "../elements/Title";
+import DefaultContainer from "../layout/DefaultContainer"
+import ContentContainer from "../layout/ContentContainer"
+import Title from "../elements/Title"
 
 function Project() {
   return (
@@ -9,7 +9,7 @@ function Project() {
         <Title className="mb-[50px]">Project page</Title>
       </ContentContainer>
     </DefaultContainer>
-  );
+  )
 }
 
-export default Project;
+export default Project

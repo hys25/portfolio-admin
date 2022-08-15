@@ -1,4 +1,4 @@
 function Spinner() {
-  return <div className="text-20">Spinner</div>;
+  return <div className="text-20">Spinner</div>
 }
-export default Spinner;
+export default Spinner

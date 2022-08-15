@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { ReactComponent as ShowPasswordIcon } from "../assets/icons/password-icon-eye-24.svg";
-import { ReactComponent as HidenPasswordIcon } from "../assets/icons/password-icon-eye-24-closed.svg";
+import { useState } from "react"
+import { ReactComponent as ShowPasswordIcon } from "../assets/icons/password-icon-eye-24.svg"
+import { ReactComponent as HidenPasswordIcon } from "../assets/icons/password-icon-eye-24-closed.svg"
 
 export function StyledInput({
   value,
@@ -32,7 +32,7 @@ export function StyledInput({
         <span className="absolute block w-full h-[60px] bg-greyDark left-0 top-0 z-[-1]" />
       ) : null}
     </div>
-  );
+  )
 }
 
 export function AuthInput({
@@ -62,7 +62,7 @@ export function AuthInput({
       />
       {children}
     </div>
-  );
+  )
 }
 
 export function PasswordInput({
@@ -73,7 +73,7 @@ export function PasswordInput({
   name,
   ...props
 }) {
-  const [type, setType] = useState("password");
+  const [type, setType] = useState("password")
   return (
     <div className={`relative flex items-center ${className}`}>
       <StyledInput
@@ -102,5 +102,5 @@ export function PasswordInput({
         )}
       </div>
     </div>
-  );
+  )
 }

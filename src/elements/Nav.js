@@ -10,6 +10,6 @@ function Nav({ navItems }) {
         </li>
       ))}
     </ul>
-  );
+  )
 }
-export default Nav;
+export default Nav

@@ -3,5 +3,5 @@ export function Title({ className, children, ...props }) {
     <p className={`text-14 text-white ${className}`} {...props}>
       {children}
     </p>
-  );
+  )
 }
