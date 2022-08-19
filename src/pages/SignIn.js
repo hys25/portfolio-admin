@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import { signIn, reset } from "../features/auth/authSlice"
 import DefaultContainer from "../layout/DefaultContainer"
-import { AuthInput, PasswordInput } from "../elements/Input"
+import { StyledInput, PasswordInput } from "../elements/Input"
 import { Checkbox } from "../elements/Checkbox"
-import { Button, ButtonLink } from "../elements/Button"
+import { Button, StyledLink } from "../elements/Button"
 import Spinner from "../layout/Spinner"
 
 function SignIn() {
@@ -14,6 +14,7 @@ function SignIn() {
     email: "",
     password: "",
   })
+  const [rememberUser, setRememberUser] = useState(false)
   const { email, password } = formData
 
   const navigate = useNavigate()
@@ -24,7 +25,7 @@ function SignIn() {
   )
 
   useEffect(() => {
-    const userLS = localStorage.getItem("user")
+    const userLS = localStorage.getItem("user_token")
 
     if (isError) {
       toast.error(message)
@@ -59,15 +60,14 @@ function SignIn() {
 
   return (
     <DefaultContainer>
-      <form onSubmit={onSubmit} className="w-full max-w-[400px] m-auto">
-        <AuthInput
+      <form onSubmit={onSubmit} className="m-auto w-full max-w-[400px]">
+        <StyledInput
           value={email}
           onChange={onChange}
           type="email"
           name="email"
           id="email"
           placeholder="Email"
-          login
         />
         <PasswordInput
           value={password}
@@ -77,15 +77,22 @@ function SignIn() {
           placeholder="Password"
         />
         <div className="flex justify-between mt-[20px] mb-[25px]">
-          <Checkbox name="Remember me">Remember me</Checkbox>
-          <ButtonLink href="/">Forgot password</ButtonLink>
+          <Checkbox
+            name="Remember me"
+            id="remember-me"
+            onChange={() => setRememberUser(!rememberUser)}
+            checked={rememberUser}
+          >
+            Remember me
+          </Checkbox>
+          <StyledLink href="/">Forgot password</StyledLink>
         </div>
         <Button type="submit">Sign in</Button>
-        <div className="flex items-center justify-center mt-[10px] text-grey">
+        <div className="flex justify-center items-center mt-[10px] text-grey">
           Don&apos;t have an account yet?{" "}
-          <ButtonLink href="/register" className="ml-[10px]">
-            Register now
-          </ButtonLink>
+          <StyledLink href="/auth/sign-up" className="ml-[10px]">
+            Sign up now
+          </StyledLink>
         </div>
       </form>
     </DefaultContainer>

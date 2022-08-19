@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom"
+import { useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import DefaultContainer from "../layout/DefaultContainer"
 import ContentContainer from "../layout/ContentContainer"
 import { Title } from "../elements/Title"
@@ -43,6 +44,14 @@ const dummyProjects = [
 ]
 
 function Projects() {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const isUser = localStorage.getItem("user_token")
+    if (!isUser) {
+      navigate("/auth/sign-in")
+    }
+  })
   return (
     <DefaultContainer authorized>
       <ContentContainer>
@@ -54,7 +63,7 @@ function Projects() {
               key={project.id}
               className={`hover:drop-shadow-md relative z-1 saturate-50 hover:saturate-100 flex flex-col justify-between w-full h-[230px] p-[20px] bg-[url('https://blog.hubspot.com/hubfs/Team%20deciding%20on%20membership%20website%20builder.jpg')] cursor-pointer`}
             >
-              <h2 className="relative z-2 text-20 text-white uppercase font-bold">
+              <h2 className="relative font-bold text-white uppercase z-2 text-20">
                 {project.projectName}
               </h2>
             </Link>

@@ -1,12 +1,21 @@
-function Nav({ navItems }) {
+import { Link } from "react-router-dom"
+
+function Nav({ href, navItems, ...props }) {
   return (
-    <ul className="h-full flex flex-col mt-[50px] text-white">
+    <ul className="flex flex-col h-full text-white mt-[50px]">
       {navItems.map((item) => (
         <li
           key={item}
-          className="w-[200px] hover:w-full hover:pr-[50px] hover:bg-grey transition-all pl-[50px] pr-5 py-4 mb-[10px] bg-greyDark text-left text-14 uppercase font-bold"
+          className="py-4 pr-5 font-bold text-left uppercase transition-all hover:w-full w-[200px] pl-[50px] mb-[10px] bg-greyDark text-14 hover:pr-[50px] hover:bg-grey"
         >
-          {item}
+          <Link to={href}>
+            <div
+              className="flex items-center text-white cursor-pointer text-14"
+              {...props}
+            >
+              {item}
+            </div>
+          </Link>
         </li>
       ))}
     </ul>

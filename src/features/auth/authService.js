@@ -1,28 +1,28 @@
 import axios from "axios"
 
-const API_URL = "/auth/"
+const CURRENT_SLICE_ROUTE = "/auth/"
 
 // SignUp user
 const signUp = async (userData) => {
-  const response = await axios.post(API_URL + "sign-up", userData)
+  const response = await axios.post(CURRENT_SLICE_ROUTE + "sign-up", userData)
   if (response.data) {
-    localStorage.setItem("user", JSON.stringify(response.data))
+    localStorage.setItem("user_token", JSON.stringify(response.data.token))
   }
   return response.data
 }
 
 // SignIn user
 const signIn = async (userData) => {
-  const response = await axios.post(API_URL + "sign-in", userData)
+  const response = await axios.post(CURRENT_SLICE_ROUTE + "sign-in", userData)
   if (response.data) {
-    localStorage.setItem("user", JSON.stringify(response.data))
+    localStorage.setItem("user_token", JSON.stringify(response.data.token))
   }
   return response.data
 }
 
 // LogOut user
 const logOut = async () => {
-  localStorage.removeItem("user")
+  localStorage.removeItem("user_token")
 }
 
 const authService = {

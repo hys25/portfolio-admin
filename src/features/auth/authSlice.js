@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import authService from "./authService"
 import { useNavigate } from "react-router-dom"
+import { getErrorMessage } from "../../utils/getErrorMessage"
 
 //Get user from localStorage
-console.log(localStorage.getItem("user"))
-const user = JSON.parse(localStorage.getItem("user"))
+console.log(localStorage.getItem("user_token"))
+const user = JSON.parse(localStorage.getItem("user_token"))
 
 const initialState = {
   user: user ? user : null,
@@ -21,13 +22,7 @@ export const signUp = createAsyncThunk(
     try {
       return await authService.signUp(user)
     } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString()
-      return thunkAPI.rejectWithMessage(message)
+      return thunkAPI.rejectWithMessage(getErrorMessage(error))
     }
   }
 )
@@ -39,13 +34,7 @@ export const signIn = createAsyncThunk(
     try {
       return await authService.signIn(user)
     } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString()
-      return thunkAPI.rejectWithMessage(message)
+      return thunkAPI.rejectWithMessage(getErrorMessage(error))
     }
   }
 )
@@ -59,10 +48,10 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      ;(state.isError = false),
-        (state.isSuccess = false),
-        (state.isLoading = false),
-        (state.message = "")
+      state.isError = false,
+      state.isSuccess = false,
+      state.isLoading = false,
+      state.message = ""
     },
   },
   extraReducers: (builder) => {

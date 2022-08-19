@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import { signUp, reset } from "../features/auth/authSlice"
 import DefaultContainer from "../layout/DefaultContainer"
-import { AuthInput, PasswordInput } from "../elements/Input"
+import { StyledInput, PasswordInput } from "../elements/Input"
 import { Button } from "../elements/Button"
 import Spinner from "../layout/Spinner"
 
@@ -63,23 +63,21 @@ function SignUp() {
 
   return (
     <DefaultContainer>
-      <form onSubmit={onSubmit} className="w-full max-w-[400px] m-auto">
-        <AuthInput
+      <form onSubmit={onSubmit} className="m-auto w-full max-w-[400px]">
+        <StyledInput
           value={username}
           name="username"
           id="username"
           placeholder="Username"
-          login
           onChange={onChange}
         />
-        <AuthInput
+        <StyledInput
           value={email}
           onChange={onChange}
           type="email"
           name="email"
           id="email"
           placeholder="Email"
-          login
         />
         <PasswordInput
           value={password}

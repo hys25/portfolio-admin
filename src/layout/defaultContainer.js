@@ -28,19 +28,19 @@ function DefaultContainer({ authorized, ...props }) {
   }
 
   return (
-    <div className="h-screen w-screen flex py-[40px] bg-black">
+    <div className="flex w-screen h-screen bg-black py-[40px]">
       {authorized ? (
-        <div className="flex flex-col justify-between h-full w-full max-w-[230px] text-white">
+        <div className="flex flex-col justify-between w-full h-full text-white max-w-[230px]">
           <div className="flex flex-col">
-            <h1 className="ml-[50px] font-bold text-14 uppercase">
+            <h1 className="font-bold uppercase ml-[50px] text-14">
               {dummyUser.name}
             </h1>
-            <Nav navItems={dummyNav} />
+            <Nav navItems={dummyNav} href="/" />
           </div>
-          <div className="ml-[50px] flex flex-col">
+          <div className="flex flex-col ml-[50px]">
             {user && (
               <div
-                className="mb-3 font-bold text-14 uppercase cursor-pointer"
+                className="mb-3 font-bold uppercase cursor-pointer text-14"
                 onClick={onLogOut}
                 onKeyPress={onLogOut}
                 role="presentation"
@@ -48,7 +48,7 @@ function DefaultContainer({ authorized, ...props }) {
                 Log out
               </div>
             )}
-            <h2 className="uppercase font-bold text-14 text-grey">
+            <h2 className="font-bold uppercase text-14 text-grey">
               {dummyUser.position.replace(" ", "_")}
             </h2>
           </div>
