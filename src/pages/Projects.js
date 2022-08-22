@@ -63,7 +63,7 @@ function Projects() {
               key={project.id}
               className={`hover:drop-shadow-md relative z-1 saturate-50 hover:saturate-100 flex flex-col justify-between w-full h-[230px] p-[20px] bg-[url('https://blog.hubspot.com/hubfs/Team%20deciding%20on%20membership%20website%20builder.jpg')] cursor-pointer`}
             >
-              <h2 className="relative font-bold text-white uppercase z-2 text-20">
+              <h2 className="relative font-bold text-white uppercase text-20 z-2">
                 {project.projectName}
               </h2>
             </Link>

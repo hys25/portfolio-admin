@@ -79,7 +79,6 @@ function SignIn() {
         <div className="flex justify-between mt-[20px] mb-[25px]">
           <Checkbox
             name="Remember me"
-            id="remember-me"
             onChange={() => setRememberUser(!rememberUser)}
             checked={rememberUser}
           >

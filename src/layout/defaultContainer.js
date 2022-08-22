@@ -1,3 +1,4 @@
+import { useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { logOut, reset } from "../features/auth/authSlice"
@@ -21,11 +22,11 @@ function DefaultContainer({ authorized, ...props }) {
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.auth)
 
-  const onLogOut = () => {
+  const onLogOut = useCallback(() => {
     dispatch(reset())
     dispatch(logOut())
     navigate("/auth/sign-in")
-  }
+  }, [dispatch])
 
   return (
     <div className="flex w-screen h-screen bg-black py-[40px]">

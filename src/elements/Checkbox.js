@@ -1,4 +1,7 @@
-export function Checkbox({ id, className = "", name, checked, onChange }) {
+import { useId } from "react"
+
+export function Checkbox({ className = "", name, checked, onChange }) {
+  const id = useId()
   return (
     <div className="flex flex-row cursor-pointer">
       <input

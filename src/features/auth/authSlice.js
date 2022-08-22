@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom"
 import { getErrorMessage } from "../../utils/getErrorMessage"
 
 //Get user from localStorage
-console.log(localStorage.getItem("user_token"))
 const user = JSON.parse(localStorage.getItem("user_token"))
 
 const initialState = {
@@ -48,10 +47,10 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state.isError = false,
-      state.isSuccess = false,
-      state.isLoading = false,
-      state.message = ""
+      ;(state.isError = false),
+        (state.isSuccess = false),
+        (state.isLoading = false),
+        (state.message = "")
     },
   },
   extraReducers: (builder) => {
