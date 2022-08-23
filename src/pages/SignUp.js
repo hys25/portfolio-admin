@@ -16,7 +16,6 @@ function SignUp() {
     password: "",
     password2: "",
   })
-  const { password, password2 } = formData
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -37,7 +36,7 @@ function SignUp() {
   const onSubmit = (e) => {
     e.preventDefault()
 
-    if (password !== password2) {
+    if (formData.password !== formData.password2) {
       toast.error("Passwords do not match")
     } else {
       dispatch(signUp(formData))
