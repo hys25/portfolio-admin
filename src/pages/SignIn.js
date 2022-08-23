@@ -8,15 +8,14 @@ import { StyledInput, PasswordInput } from "../elements/Input"
 import { Checkbox } from "../elements/Checkbox"
 import { Button, StyledLink } from "../elements/Button"
 import Spinner from "../layout/Spinner"
+import useForm from "../hooks/useForm"
 
 function SignIn() {
-  const [formData, setFormData] = useState({
+  const { onChange, formData } = useForm({
     email: "",
     password: "",
   })
   const [rememberUser, setRememberUser] = useState(false)
-  const { email, password } = formData
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -36,22 +35,9 @@ function SignIn() {
     dispatch(reset())
   }, [user, isError, isSuccess, message, navigate, dispatch])
 
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }))
-  }
-
   const onSubmit = (e) => {
     e.preventDefault()
-
-    const userData = {
-      email,
-      password,
-    }
-
-    dispatch(signIn(userData))
+    dispatch(signIn(formData))
   }
 
   if (isLoading) {
@@ -62,7 +48,7 @@ function SignIn() {
     <DefaultContainer>
       <form onSubmit={onSubmit} className="m-auto w-full max-w-[400px]">
         <StyledInput
-          value={email}
+          value={formData.email}
           onChange={onChange}
           type="email"
           name="email"
@@ -70,7 +56,7 @@ function SignIn() {
           placeholder="Email"
         />
         <PasswordInput
-          value={password}
+          value={formData.password}
           onChange={onChange}
           name="password"
           id="password"

@@ -7,16 +7,16 @@ import DefaultContainer from "../layout/DefaultContainer"
 import { StyledInput, PasswordInput } from "../elements/Input"
 import { Button } from "../elements/Button"
 import Spinner from "../layout/Spinner"
+import useForm from "../hooks/useForm"
 
 function SignUp() {
-  const [formData, setFormData] = useState({
+  const { formData, onChange } = useForm({
     username: "",
     email: "",
     password: "",
     password2: "",
   })
   const { username, email, password, password2 } = formData
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -34,26 +34,13 @@ function SignUp() {
     dispatch(reset())
   }, [user, isError, isSuccess, message, navigate, dispatch])
 
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }))
-  }
-
   const onSubmit = (e) => {
     e.preventDefault()
 
     if (password !== password2) {
       toast.error("Passwords do not match")
     } else {
-      const userData = {
-        username,
-        email,
-        password,
-      }
-
-      dispatch(signUp(userData))
+      dispatch(signUp(formData))
     }
   }
 
@@ -65,14 +52,14 @@ function SignUp() {
     <DefaultContainer>
       <form onSubmit={onSubmit} className="m-auto w-full max-w-[400px]">
         <StyledInput
-          value={username}
+          value={formData.username}
           name="username"
           id="username"
           placeholder="Username"
           onChange={onChange}
         />
         <StyledInput
-          value={email}
+          value={formData.email}
           onChange={onChange}
           type="email"
           name="email"
@@ -80,14 +67,14 @@ function SignUp() {
           placeholder="Email"
         />
         <PasswordInput
-          value={password}
+          value={formData.password}
           onChange={onChange}
           placeholder="Password"
           name="password"
           id="password"
         />
         <PasswordInput
-          value={password2}
+          value={formData.password2}
           onChange={onChange}
           placeholder="Confirm password"
           name="password2"
