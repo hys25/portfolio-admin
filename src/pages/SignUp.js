@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
@@ -16,7 +16,7 @@ function SignUp() {
     password: "",
     password2: "",
   })
-  const { username, email, password, password2 } = formData
+  const { password, password2 } = formData
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
