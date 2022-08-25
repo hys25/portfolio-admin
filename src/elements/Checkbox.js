@@ -7,6 +7,7 @@ export function Checkbox({
   name,
   checked,
   onChange,
+  children,
 }) {
   const id = useId()
   return (
@@ -22,7 +23,7 @@ export function Checkbox({
         onChange={onChange}
       />
       <label htmlFor={id} className={`ml-2 w-full ${classNameLabel}`}>
-        {name}
+        {children}
       </label>
     </div>
   )

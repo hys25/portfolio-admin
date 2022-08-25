@@ -36,9 +36,9 @@ function NewProject() {
     event.preventDefault()
     formData.append("main_image", mainImage)
     formData.append("background_image", bgImage)
-    for (const key in formDataValue) {
-      formData.append(key, formDataValue[key])
-    }
+    Object.entries(formDataValue).forEach(([key, value]) => {
+      formData.append(key, value)
+    })
     dispatch(postProject(formData))
   }
 
@@ -46,7 +46,7 @@ function NewProject() {
     <DefaultContainer authorized>
       <ContentContainer>
         <Title className="mb-[50px]">Add new project</Title>
-        <form onSubmit={onSubmit} className="mx-auto w-full max-w-[550px]">
+        <form onSubmit={onSubmit} className="mx-auto w-full max-w-[700px]">
           <div className="flex justify-between">
             <StyledInput
               value={formDataValue.project_name}
@@ -66,13 +66,24 @@ function NewProject() {
               Main project
             </Checkbox>
           </div>
-          <StyledInput
-            value={formDataValue.website_link}
-            onChange={onChange}
-            name="website_link"
-            id="website_link"
-            placeholder="Link to website "
-          />
+          <div className="flex justify-between">
+            <StyledInput
+              value={formDataValue.website_link}
+              onChange={onChange}
+              name="website_link"
+              id="website_link"
+              placeholder="Link to website"
+              classNameWrapper="w-2/3 pr-[10px]"
+            />
+            <StyledInput
+              value={formDataValue.brand_color}
+              onChange={onChange}
+              name="brand_color"
+              id="brand_color"
+              placeholder="Brand color HEX (optional)"
+              classNameWrapper="w-1/3"
+            />
+          </div>
           <StyledInput
             value={formDataValue.project_stack}
             onChange={onChange}
@@ -94,18 +105,20 @@ function NewProject() {
             id="your_impact"
             placeholder="Your impact"
           />
-          <StyledInput
-            value={formDataValue.brand_color}
-            onChange={onChange}
-            name="brand_color"
-            id="brand_color"
-            placeholder="Brand color HEX (optional)"
-          />
+
           <div className="flex justify-between">
-            <UploadFile classNameWrapper="mr-[5px]" onChange={handleMainImage}>
+            <UploadFile
+              classNameWrapper="mr-[5px]"
+              onChange={handleMainImage}
+              selectedFile={mainImage}
+            >
               Add main image of project
             </UploadFile>
-            <UploadFile classNameWrapper="ml-[5px]" onChange={handleBgImage}>
+            <UploadFile
+              classNameWrapper="ml-[5px]"
+              onChange={handleBgImage}
+              selectedFile={bgImage}
+            >
               Add background animation
             </UploadFile>
           </div>

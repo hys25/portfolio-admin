@@ -1,4 +1,4 @@
-import { useId } from "react"
+import { useId, useState, useEffect } from "react"
 import { ReactComponent as PlusIcon } from "../assets/icons/plus-icon.svg"
 
 function UploadFile({
@@ -6,27 +6,40 @@ function UploadFile({
   classNameWrapper,
   onChange,
   children,
+  selectedFile,
   ...props
 }) {
   const id = useId()
+  const [preview, setPreview] = useState()
+  useEffect(() => {
+    if (!selectedFile) {
+      return setPreview(null)
+    }
+    const imageUrl = URL.createObjectURL(selectedFile)
+    setPreview(imageUrl)
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(imageUrl)
+  }, [selectedFile])
+
   return (
-    <div
-      className={`flex items-center justify-between h-[60px] px-[20px] w-full bg-greyDark ${classNameWrapper}`}
-    >
-      <input
-        id={id}
-        type="file"
-        onChange={onChange}
-        className={`text-[0px] opacity-0 w-0 ${className}`}
-        {...props}
-      />
-      <label
-        htmlFor={id}
-        className="cursor-pointer leading-[60px] h-[60px] w-full whitespace-nowrap text-grey"
-      >
-        {children}
-      </label>
-      <PlusIcon width={12} height={12} />
+    <div className={`flex flex-col w-1/2 ${classNameWrapper}`}>
+      <div className="flex items-center h-[60px] px-[20px] bg-greyDark">
+        <input
+          id={id}
+          type="file"
+          onChange={onChange}
+          className={`text-[0px] opacity-0 w-0 ${className}`}
+          {...props}
+        />
+        <label
+          htmlFor={id}
+          className="w-full whitespace-nowrap cursor-pointer leading-[60px] h-[60px] text-grey"
+        >
+          {children}
+        </label>
+        <PlusIcon width={12} height={12} />
+      </div>
+      {selectedFile && <img alt="" src={preview} className="mt-[10px]" />}
     </div>
   )
 }
