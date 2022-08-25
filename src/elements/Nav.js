@@ -1,19 +1,19 @@
 import { Link } from "react-router-dom"
 
-function Nav({ href, navItems, ...props }) {
+function Nav({ navItems, ...props }) {
   return (
-    <ul className="flex flex-col h-full text-white mt-[50px]">
+    <ul className="flex flex-col h-full mt-[50px]">
       {navItems.map((item) => (
         <li
-          key={item}
-          className="py-4 pr-5 font-bold text-left uppercase transition-all hover:w-full w-[200px] pl-[50px] mb-[10px] bg-greyDark text-14 hover:pr-[50px] hover:bg-grey"
+          key={item.id}
+          className="py-4 pr-5 font-bold text-left text-white uppercase transition-all hover:w-full w-[200px] pl-[50px] mb-[10px] bg-greyDark text-14 hover:text-greyDark hover:pr-[50px] hover:bg-grey"
         >
-          <Link to={href}>
+          <Link to={item.slug}>
             <div
-              className="flex items-center text-white cursor-pointer text-14"
+              className="flex items-center cursor-pointer text-14 hover:text-greyDark"
               {...props}
             >
-              {item}
+              {item.name}
             </div>
           </Link>
         </li>

@@ -1,9 +1,18 @@
 import { useId } from "react"
 
-export function Checkbox({ className = "", name, checked, onChange }) {
+export function Checkbox({
+  className = "",
+  classNameWrapper = "",
+  classNameLabel = "text-white",
+  name,
+  checked,
+  onChange,
+}) {
   const id = useId()
   return (
-    <div className="flex flex-row cursor-pointer">
+    <div
+      className={`flex flex-row items-center cursor-pointer ${classNameWrapper}`}
+    >
       <input
         id={id}
         type="checkbox"
@@ -12,7 +21,7 @@ export function Checkbox({ className = "", name, checked, onChange }) {
         checked={checked}
         onChange={onChange}
       />
-      <label htmlFor={id} className="ml-2 w-full text-white">
+      <label htmlFor={id} className={`ml-2 w-full ${classNameLabel}`}>
         {name}
       </label>
     </div>

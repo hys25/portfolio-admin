@@ -1,11 +1,14 @@
 import axios from "axios"
-import instance from './../api_instance'
+import instance from "../apiInstance"
 
-const CURRENT_SLICE_ROUTE = '/auth/'
+const CURRENT_SLICE_ROUTE = "/auth/"
 
 // SignUp user
 const signUp = async (userData) => {
-  const response = await instance.post(CURRENT_SLICE_ROUTE + "sign-up", userData)
+  const response = await instance.post(
+    CURRENT_SLICE_ROUTE + "sign-up",
+    userData
+  )
   if (response.data) {
     localStorage.setItem("user_token", JSON.stringify(response.data.token))
   }
@@ -14,7 +17,10 @@ const signUp = async (userData) => {
 
 // SignIn user
 const signIn = async (userData) => {
-  const response = await instance.post(CURRENT_SLICE_ROUTE + "sign-in", userData)
+  const response = await instance.post(
+    CURRENT_SLICE_ROUTE + "sign-in",
+    userData
+  )
   if (response.data) {
     localStorage.setItem("user_token", JSON.stringify(response.data.token))
   }

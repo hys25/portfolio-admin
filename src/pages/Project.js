@@ -1,6 +1,6 @@
 import DefaultContainer from "../layout/DefaultContainer"
 import ContentContainer from "../layout/ContentContainer"
-import Title from "../elements/Title"
+import { Title } from "../elements/Title"
 
 function Project() {
   return (

@@ -18,12 +18,12 @@ export function StyledLink({ href, children, className, onClick, ...props }) {
   )
 }
 
-export function Button({ children, className, onClick, ...props }) {
+export function Button({ children, className = "w-full", onClick, ...props }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`flex items-center justify-center h-[60px] w-full cursor-pointer text-white bg-greyDark tracking-wide hover:tracking-normal hover:border-grey hover:border-[1px] hover:font-bold transition-all ${className}`}
+      className={`flex items-center justify-center mx-auto h-[60px] px-[30px] cursor-pointer text-white bg-greyDark hover:bg-grey hover:text-greyDark font-bold transition-all uppercase ${className}`}
       {...props}
     >
       {children}

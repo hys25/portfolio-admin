@@ -1,19 +1,25 @@
 import { useState, useCallback } from "react"
 
 const useForm = (initialState) => {
-  const [formData, setFormData] = useState(initialState)
+  const [formDataValue, setFormDataValue] = useState(initialState)
 
   const onChange = useCallback(
     (e) => {
-      setFormData((prevState) => ({
+      if (e.target.type === "checkbox") {
+        return setFormDataValue((prevState) => ({
+          ...prevState,
+          [e.target.name]: e.target.checked,
+        }))
+      }
+      return setFormDataValue((prevState) => ({
         ...prevState,
         [e.target.name]: e.target.value,
       }))
     },
-    [setFormData]
+    [setFormDataValue]
   )
 
-  return { formData, onChange }
+  return { formDataValue, onChange }
 }
 
 export default useForm

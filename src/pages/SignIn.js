@@ -11,7 +11,7 @@ import Spinner from "../layout/Spinner"
 import useForm from "../hooks/useForm"
 
 function SignIn() {
-  const { onChange, formData } = useForm({
+  const { onChange, formDataValue } = useForm({
     email: "",
     password: "",
   })
@@ -37,7 +37,7 @@ function SignIn() {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    dispatch(signIn(formData))
+    dispatch(signIn(formDataValue))
   }
 
   if (isLoading) {
@@ -48,7 +48,7 @@ function SignIn() {
     <DefaultContainer>
       <form onSubmit={onSubmit} className="m-auto w-full max-w-[400px]">
         <StyledInput
-          value={formData.email}
+          value={formDataValue.email}
           onChange={onChange}
           type="email"
           name="email"
@@ -56,7 +56,7 @@ function SignIn() {
           placeholder="Email"
         />
         <PasswordInput
-          value={formData.password}
+          value={formDataValue.password}
           onChange={onChange}
           name="password"
           id="password"

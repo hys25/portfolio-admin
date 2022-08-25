@@ -9,12 +9,36 @@ const dummyUser = {
   position: "frontend dev",
 }
 const dummyNav = [
-  "all projects",
-  "new project",
-  "new skill",
-  "update cv",
-  "messages",
-  "settings",
+  {
+    id: 1,
+    name: "all projects",
+    slug: "/",
+  },
+  {
+    id: 2,
+    name: "new project",
+    slug: "/new-project",
+  },
+  {
+    id: 3,
+    name: "new skill",
+    slug: "/new-skill",
+  },
+  {
+    id: 4,
+    name: "update cv",
+    slug: "/update-cv",
+  },
+  {
+    id: 5,
+    name: "messages",
+    slug: "/messages",
+  },
+  {
+    id: 6,
+    name: "settings",
+    slug: "/settings",
+  },
 ]
 
 function DefaultContainer({ authorized, ...props }) {
@@ -36,7 +60,7 @@ function DefaultContainer({ authorized, ...props }) {
             <h1 className="font-bold uppercase ml-[50px] text-14">
               {dummyUser.name}
             </h1>
-            <Nav navItems={dummyNav} href="/" />
+            <Nav navItems={dummyNav} />
           </div>
           <div className="flex flex-col ml-[50px]">
             {user && (

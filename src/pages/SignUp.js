@@ -10,7 +10,7 @@ import Spinner from "../layout/Spinner"
 import useForm from "../hooks/useForm"
 
 function SignUp() {
-  const { formData, onChange } = useForm({
+  const { formDataValue, onChange } = useForm({
     username: "",
     email: "",
     password: "",
@@ -36,10 +36,10 @@ function SignUp() {
   const onSubmit = (e) => {
     e.preventDefault()
 
-    if (formData.password !== formData.password2) {
+    if (formDataValue.password !== formDataValue.password2) {
       toast.error("Passwords do not match")
     } else {
-      dispatch(signUp(formData))
+      dispatch(signUp(formDataValue))
     }
   }
 
@@ -51,14 +51,14 @@ function SignUp() {
     <DefaultContainer>
       <form onSubmit={onSubmit} className="m-auto w-full max-w-[400px]">
         <StyledInput
-          value={formData.username}
+          value={formDataValue.username}
           name="username"
           id="username"
           placeholder="Username"
           onChange={onChange}
         />
         <StyledInput
-          value={formData.email}
+          value={formDataValue.email}
           onChange={onChange}
           type="email"
           name="email"
@@ -66,14 +66,14 @@ function SignUp() {
           placeholder="Email"
         />
         <PasswordInput
-          value={formData.password}
+          value={formDataValue.password}
           onChange={onChange}
           placeholder="Password"
           name="password"
           id="password"
         />
         <PasswordInput
-          value={formData.password2}
+          value={formDataValue.password2}
           onChange={onChange}
           placeholder="Confirm password"
           name="password2"

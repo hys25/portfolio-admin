@@ -2,10 +2,14 @@ import { useState } from "react"
 import { ReactComponent as ShowPasswordIcon } from "../assets/icons/password-icon-eye-24.svg"
 import { ReactComponent as HidenPasswordIcon } from "../assets/icons/password-icon-eye-24-closed.svg"
 
-export function StyledInput({ className, classNameWrapper, ...props }) {
+export function StyledInput({
+  className,
+  classNameWrapper = "w-full",
+  ...props
+}) {
   return (
     <div
-      className={`flex relative items-center text-black w-full mb-[10px] ${classNameWrapper}`}
+      className={`flex relative items-center text-black mb-[10px] ${classNameWrapper}`}
     >
       <input
         className={`text-white px-5 w-full h-[60px] text-14 appearance-none focus:outline-none bg-greyDark placeholder:text-grey ${className}`}
@@ -35,6 +39,23 @@ export function PasswordInput({ className, ...props }) {
           />
         )}
       </div>
+    </div>
+  )
+}
+
+export function StyledTextarea({
+  className,
+  classNameWrapper = "w-full",
+  ...props
+}) {
+  return (
+    <div
+      className={`flex relative items-center text-black mb-[10px] ${classNameWrapper}`}
+    >
+      <textarea
+        className={`text-white p-5 w-full h-auto min-h-[100px] text-14 appearance-none focus:outline-none bg-greyDark placeholder:text-grey ${className}`}
+        {...props}
+      />
     </div>
   )
 }
