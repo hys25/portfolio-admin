@@ -7,6 +7,7 @@ function UploadFile({
   onChange,
   children,
   selectedFile,
+  error = null,
   ...props
 }) {
   const id = useId()
@@ -40,6 +41,7 @@ function UploadFile({
         <PlusIcon width={12} height={12} />
       </div>
       {selectedFile && <img alt="" src={preview} className="mt-[10px]" />}
+      {error && <div className="text-error text-12">{error}</div>}
     </div>
   )
 }

@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 import instance from "../apiInstance"
-import { useNavigate } from "react-router-dom"
 import { getErrorMessage } from "../../utils/getErrorMessage"
+import { ToastContainer } from "react-toastify"
+import { toast } from "react-toastify"
 
 const initialState = {
   projects: null,
@@ -18,10 +19,10 @@ export const postProject = createAsyncThunk(
   "project",
   async (project, thunkAPI) => {
     try {
-      // console.log({project})
-      return await await instance.post(CURRENT_SLICE_ROUTE, project)
+      return await instance.post(CURRENT_SLICE_ROUTE, project)
     } catch (error) {
-      return thunkAPI.rejectWithMessage(getErrorMessage(error))
+      toast(error.message)
+      return thunkAPI.rejectWithValue(getErrorMessage(error))
     }
   }
 )

@@ -5,16 +5,18 @@ import { ReactComponent as HidenPasswordIcon } from "../assets/icons/password-ic
 export function StyledInput({
   className,
   classNameWrapper = "w-full",
+  error = null,
   ...props
 }) {
   return (
     <div
-      className={`flex relative items-center text-black mb-[10px] ${classNameWrapper}`}
+      className={`flex flex-col relative items-start text-black mb-[10px] ${classNameWrapper}`}
     >
       <input
         className={`text-white px-5 w-full h-[60px] text-14 appearance-none focus:outline-none bg-greyDark placeholder:text-grey ${className}`}
         {...props}
       />
+      {error && <div className="text-error text-12">{error}</div>}
     </div>
   )
 }
@@ -46,16 +48,18 @@ export function PasswordInput({ className, ...props }) {
 export function StyledTextarea({
   className,
   classNameWrapper = "w-full",
+  error = null,
   ...props
 }) {
   return (
     <div
-      className={`flex relative items-center text-black mb-[10px] ${classNameWrapper}`}
+      className={`flex flex-col relative items-start text-black mb-[10px] ${classNameWrapper}`}
     >
       <textarea
         className={`text-white p-5 w-full h-auto min-h-[100px] text-14 appearance-none focus:outline-none bg-greyDark placeholder:text-grey ${className}`}
         {...props}
       />
+      {error && <div className="text-error text-12">{error}</div>}
     </div>
   )
 }

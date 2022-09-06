@@ -14,6 +14,7 @@ module.exports = {
         black: '#101011',
         grey: '#A8A8A8',
         greyDark: '#323130',
+        error: '#ff0033',
       },
       fontSize: {
         10: '10px',
