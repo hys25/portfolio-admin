@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
@@ -33,15 +33,18 @@ function SignUp() {
     dispatch(reset())
   }, [user, isError, isSuccess, message, navigate, dispatch])
 
-  const onSubmit = (e) => {
-    e.preventDefault()
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault()
 
-    if (formDataValue.password !== formDataValue.password2) {
-      toast.error("Passwords do not match")
-    } else {
-      dispatch(signUp(formDataValue))
-    }
-  }
+      if (formDataValue.password !== formDataValue.password2) {
+        toast.error("Passwords do not match")
+      } else {
+        dispatch(signUp(formDataValue))
+      }
+    },
+    [dispatch, formDataValue]
+  )
 
   if (isLoading) {
     return <Spinner />

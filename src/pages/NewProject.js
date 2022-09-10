@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import DefaultContainer from "../layout/DefaultContainer"
@@ -18,12 +18,18 @@ function NewProject() {
   const [errors, setErrors] = useState({})
   const [mainImage, setMainImage] = useState()
   const [bgImage, setBgImage] = useState()
-  const handleMainImage = (event) => {
-    setMainImage(event.target.files[0])
-  }
-  const handleBgImage = (event) => {
-    setBgImage(event.target.files[0])
-  }
+  const handleMainImage = useCallback(
+    (event) => {
+      setMainImage(event.target.files[0])
+    },
+    [setMainImage]
+  )
+  const handleBgImage = useCallback(
+    (event) => {
+      setBgImage(event.target.files[0])
+    },
+    [setBgImage]
+  )
 
   const { onChange, formDataValue } = useForm({
     project_name: "",
@@ -34,35 +40,40 @@ function NewProject() {
     your_impact: "",
     brand_color: "",
   })
-  const formData = new FormData()
-  const onSubmit = async (event) => {
-    event.preventDefault()
-    const requiredFields = [
-      "project_name",
-      "website_link",
-      "project_stack",
-      "project_description",
-      "your_impact",
-    ]
-    const validationResult = validate(requiredFields, formDataValue)
-    if (!mainImage) {
-      validationResult.main_image = "Main image is required"
-    }
-    if (!bgImage) {
-      validationResult.background_image = "Background image is required"
-    }
-    if (Object.keys(validationResult).length !== 0) {
-      setErrors(validationResult)
-      return
-    }
-    formData.append("main_image", mainImage)
-    formData.append("background_image", bgImage)
-    Object.entries(formDataValue).forEach(([key, value]) => {
-      formData.append(key, value)
-    })
-    await dispatch(postProject(formData))
-    navigate("/")
-  }
+  const onSubmit = useCallback(
+    async (event) => {
+      event.preventDefault()
+      const formData = new FormData()
+      const requiredFields = [
+        "project_name",
+        "website_link",
+        "project_stack",
+        "project_description",
+        "your_impact",
+      ]
+      const validationResult = validate(requiredFields, formDataValue)
+      if (!mainImage) {
+        validationResult.main_image = "Main image is required"
+      }
+      if (!bgImage) {
+        validationResult.background_image = "Background image is required"
+      }
+      if (Object.keys(validationResult).length !== 0) {
+        setErrors(validationResult)
+        return
+      }
+      formData.append("main_image", mainImage)
+      formData.append("background_image", bgImage)
+      Object.entries(formDataValue).forEach(([key, value]) => {
+        formData.append(key, value)
+      })
+      const result = await dispatch(postProject(formData))
+      if (result.payload.status === 200) {
+        navigate("/")
+      }
+    },
+    [dispatch, navigate, setErrors, mainImage, bgImage, formDataValue]
+  )
 
   return (
     <DefaultContainer authorized>

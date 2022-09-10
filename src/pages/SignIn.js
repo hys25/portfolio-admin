@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
@@ -35,10 +35,13 @@ function SignIn() {
     dispatch(reset())
   }, [user, isError, isSuccess, message, navigate, dispatch])
 
-  const onSubmit = (e) => {
-    e.preventDefault()
-    dispatch(signIn(formDataValue))
-  }
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault()
+      dispatch(signIn(formDataValue))
+    },
+    [dispatch, formDataValue]
+  )
 
   if (isLoading) {
     return <Spinner />

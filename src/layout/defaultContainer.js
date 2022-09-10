@@ -50,7 +50,7 @@ function DefaultContainer({ authorized, ...props }) {
     dispatch(reset())
     dispatch(logOut())
     navigate("/auth/sign-in")
-  }, [dispatch])
+  }, [dispatch, navigate])
 
   return (
     <div className="flex w-screen h-screen bg-black py-[40px]">
