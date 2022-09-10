@@ -1,37 +1,87 @@
+import { useCallback } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { logOut, reset } from "../features/auth/authSlice"
 import Nav from "../elements/Nav"
 
 const dummyUser = {
   name: "Halyna Pravdych",
   position: "frontend dev",
-};
+}
 const dummyNav = [
-  "all projects",
-  "new project",
-  "new skill",
-  "update cv",
-  "messages",
-  "settings",
-];
+  {
+    id: 1,
+    name: "all projects",
+    slug: "/",
+  },
+  {
+    id: 2,
+    name: "new project",
+    slug: "/new-project",
+  },
+  {
+    id: 3,
+    name: "new skill",
+    slug: "/new-skill",
+  },
+  {
+    id: 4,
+    name: "update cv",
+    slug: "/update-cv",
+  },
+  {
+    id: 5,
+    name: "messages",
+    slug: "/messages",
+  },
+  {
+    id: 6,
+    name: "settings",
+    slug: "/settings",
+  },
+]
 
 function DefaultContainer({ authorized, ...props }) {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.auth)
+
+  const onLogOut = useCallback(() => {
+    dispatch(reset())
+    dispatch(logOut())
+    navigate("/auth/sign-in")
+  }, [dispatch, navigate])
+
   return (
-    <div className="h-screen w-screen flex py-[40px] bg-black">
+    <div className="flex w-screen h-screen bg-black py-[40px]">
       {authorized ? (
-        <div className="flex flex-col justify-between h-full w-full max-w-[230px] text-white">
+        <div className="flex flex-col justify-between w-full h-full text-white max-w-[230px]">
           <div className="flex flex-col">
-            <h1 className="ml-[50px] font-bold text-14 uppercase">
+            <h1 className="font-bold uppercase ml-[50px] text-14">
               {dummyUser.name}
             </h1>
-            <Nav navItems={dummyNav}></Nav>
+            <Nav navItems={dummyNav} />
           </div>
-          <h2 className="ml-[50px] uppercase font-bold text-14">
-            {dummyUser.position.replace(" ", "_")}
-          </h2>
+          <div className="flex flex-col ml-[50px]">
+            {user && (
+              <div
+                className="mb-3 font-bold uppercase cursor-pointer text-14"
+                onClick={onLogOut}
+                onKeyPress={onLogOut}
+                role="presentation"
+              >
+                Log out
+              </div>
+            )}
+            <h2 className="font-bold uppercase text-14 text-grey">
+              {dummyUser.position.replace(" ", "_")}
+            </h2>
+          </div>
         </div>
       ) : null}
       {props.children}
     </div>
-  );
+  )
 }
 
-export default DefaultContainer;
+export default DefaultContainer
