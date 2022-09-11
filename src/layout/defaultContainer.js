@@ -1,6 +1,6 @@
 import { useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { logOut, reset } from "../features/auth/authSlice"
 import Nav from "../elements/Nav"
 
@@ -43,8 +43,10 @@ const dummyNav = [
 
 function DefaultContainer({ authorized, ...props }) {
   const navigate = useNavigate()
+  const location = useLocation()
   const dispatch = useDispatch()
   const { user } = useSelector((state) => state.auth)
+  const activePage = location.pathname
 
   const onLogOut = useCallback(() => {
     dispatch(reset())
@@ -60,7 +62,7 @@ function DefaultContainer({ authorized, ...props }) {
             <h1 className="font-bold uppercase ml-[50px] text-14">
               {dummyUser.name}
             </h1>
-            <Nav navItems={dummyNav} />
+            <Nav navItems={dummyNav} activePage={activePage} />
           </div>
           <div className="flex flex-col ml-[50px]">
             {user && (
