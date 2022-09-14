@@ -1,5 +1,7 @@
+import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { getProjects, reset } from "../features/project/projectSlice"
 import DefaultContainer from "../layout/DefaultContainer"
 import ContentContainer from "../layout/ContentContainer"
 import { Title } from "../elements/Title"
@@ -44,6 +46,7 @@ const dummyProjects = [
 ]
 
 function Projects() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -51,7 +54,13 @@ function Projects() {
     if (!isUser) {
       navigate("/auth/sign-in")
     }
-  })
+    dispatch(getProjects())
+    return () => {
+      dispatch(reset())
+    }
+  }, [navigate, dispatch, reset])
+  const projects = useSelector((state) => state.projects)
+  console.log('RESULT Projects', projects)
   return (
     <DefaultContainer authorized>
       <ContentContainer>
