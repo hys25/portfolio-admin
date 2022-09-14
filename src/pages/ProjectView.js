@@ -11,21 +11,21 @@ import { REACT_APP_BE_HOST } from "../config/index"
 function Project() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { project } = useSelector((state) => state.project)
   const { id: currentProjectId } = useParams()
-
   useEffect(() => {
     dispatch(getProject(currentProjectId))
     return () => {
       dispatch(reset())
     }
   }, [navigate, dispatch, currentProjectId])
-  const { project } = useSelector((state) => state.project)
   const onEdit = useCallback(
     (id) => {
       navigate(`/project/edit/${id}`)
     },
     [navigate]
   )
+  const mainImagePlaceholder = "https://blog.hubspot.com/hubfs/Team%20deciding%20on%20membership%20website%20builder.jpg"
   return (
     <DefaultContainer authorized>
       <ContentContainer>
@@ -37,7 +37,7 @@ function Project() {
             src={
               project?.main_image_url
                 ? `${REACT_APP_BE_HOST}/${project?.main_image_url}`
-                : "https://blog.hubspot.com/hubfs/Team%20deciding%20on%20membership%20website%20builder.jpg"
+                : mainImagePlaceholder
             }
           />
           <p className="mb-[20px]">

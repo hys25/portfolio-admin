@@ -10,7 +10,7 @@ import { REACT_APP_BE_HOST } from "../config/index"
 function Projects() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
+  const { projects } = useSelector((state) => state.project)
   useEffect(() => {
     const isUser = localStorage.getItem("user_token")
     if (!isUser) {
@@ -21,7 +21,7 @@ function Projects() {
       dispatch(reset())
     }
   }, [navigate, dispatch])
-  const { projects } = useSelector((state) => state.project)
+  const mainImagePlaceholder = "https://blog.hubspot.com/hubfs/Team%20deciding%20on%20membership%20website%20builder.jpg"
   return (
     <DefaultContainer authorized>
       <ContentContainer>
@@ -37,13 +37,10 @@ function Projects() {
                   backgroundImage: `url(${
                     main_image_url
                       ? mainImageUrl
-                      : "https://blog.hubspot.com/hubfs/Team%20deciding%20on%20membership%20website%20builder.jpg"
+                      : mainImagePlaceholder
                   })`,
-                  backgroundPosition: "center center",
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "cover",
                 }}
-                className="hover:drop-shadow-md relative z-1 saturate-50 hover:saturate-100 flex flex-col justify-between w-full h-[230px] p-[20px] cursor-pointer"
+                className="hover:drop-shadow-md relative z-1 saturate-50 hover:saturate-100 flex flex-col justify-between w-full h-[230px] p-[20px] cursor-pointer bg-no-repeat bg-cover"
               >
                 <h2 className="relative h-auto font-bold text-white uppercase text-20 z-2">
                   {projectName}
