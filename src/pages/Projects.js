@@ -7,6 +7,8 @@ import ContentContainer from "../layout/ContentContainer"
 import { Title } from "../elements/Title"
 import { REACT_APP_BE_HOST } from "../config/index"
 
+const MAIN_IMAGE_PLACEHOLDER = "https://blog.hubspot.com/hubfs/Team%20deciding%20on%20membership%20website%20builder.jpg"
+
 function Projects() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -21,7 +23,6 @@ function Projects() {
       dispatch(reset())
     }
   }, [navigate, dispatch])
-  const mainImagePlaceholder = "https://blog.hubspot.com/hubfs/Team%20deciding%20on%20membership%20website%20builder.jpg"
   return (
     <DefaultContainer authorized>
       <ContentContainer>
@@ -37,7 +38,7 @@ function Projects() {
                   backgroundImage: `url(${
                     main_image_url
                       ? mainImageUrl
-                      : mainImagePlaceholder
+                      : MAIN_IMAGE_PLACEHOLDER
                   })`,
                 }}
                 className="hover:drop-shadow-md relative z-1 saturate-50 hover:saturate-100 flex flex-col justify-between w-full h-[230px] p-[20px] cursor-pointer bg-no-repeat bg-cover"

@@ -8,6 +8,8 @@ import { Title } from "../elements/Title"
 import { Button } from "../elements/Button"
 import { REACT_APP_BE_HOST } from "../config/index"
 
+const MAIN_IMAGE_PLACEHOLDER = "https://blog.hubspot.com/hubfs/Team%20deciding%20on%20membership%20website%20builder.jpg"
+
 function Project() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -25,7 +27,6 @@ function Project() {
     },
     [navigate]
   )
-  const mainImagePlaceholder = "https://blog.hubspot.com/hubfs/Team%20deciding%20on%20membership%20website%20builder.jpg"
   return (
     <DefaultContainer authorized>
       <ContentContainer>
@@ -37,7 +38,7 @@ function Project() {
             src={
               project?.main_image_url
                 ? `${REACT_APP_BE_HOST}/${project?.main_image_url}`
-                : mainImagePlaceholder
+                : MAIN_IMAGE_PLACEHOLDER
             }
           />
           <p className="mb-[20px]">
