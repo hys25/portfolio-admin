@@ -26,6 +26,30 @@ export const postProject = createAsyncThunk(
     }
   }
 )
+// GET all projects
+export const getProjects = createAsyncThunk(
+  "/projects",
+  async (_, thunkAPI) => {
+    try {
+      return await instance.get("/projects")
+    } catch (error) {
+      toast(error.message)
+      return thunkAPI.rejectWithValue(getErrorMessage(error))
+    }
+  }
+)
+// GET project
+export const getProject = createAsyncThunk(
+  "/project",
+  async (projectId, thunkAPI) => {
+    try {
+      return await instance.get(`/project/${projectId}`, projectId)
+    } catch (error) {
+      toast(error.message)
+      return thunkAPI.rejectWithValue(getErrorMessage(error))
+    }
+  }
+)
 
 export const projectSlice = createSlice({
   name: "project",
@@ -49,6 +73,34 @@ export const projectSlice = createSlice({
         state.project = action.payload
       })
       .addCase(postProject.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = true
+        state.message = action.payload
+        state.project = null
+      })
+      .addCase(getProjects.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(getProjects.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.projects = action.payload.data
+      })
+      .addCase(getProjects.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = true
+        state.message = action.payload
+        state.projects = null
+      })
+      .addCase(getProject.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(getProject.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.project = action.payload.data
+      })
+      .addCase(getProject.rejected, (state, action) => {
         state.isLoading = false
         state.error = true
         state.message = action.payload
