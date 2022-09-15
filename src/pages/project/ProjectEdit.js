@@ -1,4 +1,4 @@
-import { useCallback } from "react"
+import { useCallback, useMemo } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { REACT_APP_BE_HOST } from "../../config/index"
@@ -14,15 +14,18 @@ function ProjectEdit() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { project } = useSelector((state) => state.project)
-  const defaultValues = {
-    project_name: project.project_name,
-    main_project: project.main_project,
-    website_link: project.website_link,
-    project_stack: project.project_stack,
-    project_description: project.project_description,
-    your_impact: project.your_impact,
-    brand_color: project.brand_color,
-  }
+  const defaultValues = useMemo(
+    () => ({
+      project_name: project.project_name,
+      main_project: project.main_project,
+      website_link: project.website_link,
+      project_stack: project.project_stack,
+      project_description: project.project_description,
+      your_impact: project.your_impact,
+      brand_color: project.brand_color,
+    }),
+    [project]
+  )
   const previousMainImage = `${REACT_APP_BE_HOST}/${project.main_image_url}`
   const previousBackgroundImage = `${REACT_APP_BE_HOST}/${project.background_image_url}`
 

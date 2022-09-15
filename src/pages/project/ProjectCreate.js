@@ -46,8 +46,6 @@ function ProjectCreate() {
     },
     [dispatch, navigate]
   )
-  // Create <Form onSubmit={onSubmit}/>
-  // Update <Form defaultValues={defaultValues} onSubmit={onSubmit} previousMainImage={previousMainImage} previousBackgroundImage={previousBackgroundImage}/>
   return (
     <DefaultContainer authorized>
       <ContentContainer>

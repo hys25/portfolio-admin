@@ -50,7 +50,7 @@ export const getProject = createAsyncThunk(
     }
   }
 )
-// PUT upfate project
+// PUT update project
 export const putProject = createAsyncThunk(
   "project",
   async (projectId, project, thunkAPI) => {

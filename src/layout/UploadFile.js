@@ -15,7 +15,7 @@ function UploadFile({
   const [preview, setPreview] = useState(previousImage)
   useEffect(() => {
     if (!selectedFile) {
-      return false
+      return () => {}
     }
     const imageUrl = URL.createObjectURL(selectedFile)
     setPreview(imageUrl)
