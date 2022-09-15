@@ -7,14 +7,15 @@ function UploadFile({
   onChange,
   children,
   selectedFile,
+  previousImage = null,
   error = null,
   ...props
 }) {
   const id = useId()
-  const [preview, setPreview] = useState()
+  const [preview, setPreview] = useState(previousImage)
   useEffect(() => {
     if (!selectedFile) {
-      return setPreview(null)
+      return () => {}
     }
     const imageUrl = URL.createObjectURL(selectedFile)
     setPreview(imageUrl)
@@ -40,7 +41,7 @@ function UploadFile({
         </label>
         <PlusIcon width={12} height={12} />
       </div>
-      {selectedFile && <img alt="" src={preview} className="mt-[10px]" />}
+      {preview && <img alt="Project" src={preview} className="mt-[10px]" />}
       {error && <div className="text-error text-12">{error}</div>}
     </div>
   )
