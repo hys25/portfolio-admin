@@ -50,6 +50,18 @@ export const getProject = createAsyncThunk(
     }
   }
 )
+// PUT upfate project
+export const putProject = createAsyncThunk(
+  "project",
+  async (projectId, project, thunkAPI) => {
+    try {
+      return await instance.put(`/project/${projectId}`, project)
+    } catch (error) {
+      toast(error.message)
+      return thunkAPI.rejectWithValue(getErrorMessage(error))
+    }
+  }
+)
 
 export const projectSlice = createSlice({
   name: "project",

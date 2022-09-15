@@ -2,12 +2,12 @@ import { useEffect, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import { signUp, reset } from "../features/auth/authSlice"
-import DefaultContainer from "../layout/DefaultContainer"
-import { StyledInput, PasswordInput } from "../elements/Input"
-import { Button } from "../elements/Button"
-import Spinner from "../layout/Spinner"
-import useForm from "../hooks/useForm"
+import { signUp, reset } from "../../features/auth/authSlice"
+import DefaultContainer from "../../layout/DefaultContainer"
+import { StyledInput, PasswordInput } from "../../elements/Input"
+import { Button } from "../../elements/Button"
+import Spinner from "../../layout/Spinner"
+import useForm from "../../hooks/useForm"
 
 function SignUp() {
   const { formDataValue, onChange } = useForm({
