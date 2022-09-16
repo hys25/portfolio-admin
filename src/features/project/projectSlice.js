@@ -68,7 +68,6 @@ export const deleteProject = createAsyncThunk(
   async (projectId, thunkAPI) => {
     try {
       return await instance.delete(`/project/${projectId}`)
-      // return await instance.get("/projects")
     } catch (error) {
       toast(error.message)
       return thunkAPI.rejectWithValue(getErrorMessage(error))
