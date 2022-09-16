@@ -1,19 +1,25 @@
-import { useCallback, useEffect } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-import { getProject, reset } from "../../features/project/projectSlice"
+import {
+  getProject,
+  reset,
+  deleteProject,
+} from "../../features/project/projectSlice"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { Title } from "../../elements/Title"
 import { Button } from "../../elements/Button"
 import { REACT_APP_BE_HOST } from "../../config/index"
+import DeleteProjectConfirmModal from "../../layout/DeleteProjectConfirmModal"
 
 const MAIN_IMAGE_PLACEHOLDER =
   "https://blog.hubspot.com/hubfs/Team%20deciding%20on%20membership%20website%20builder.jpg"
 
-function Project() {
+function ProjectView() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [openModal, setOpenModal] = useState(false)
   const { project } = useSelector((state) => state.project)
   const { id: currentProjectId } = useParams()
   useEffect(() => {
@@ -27,6 +33,16 @@ function Project() {
       navigate(`/project/edit/${id}`)
     },
     [navigate]
+  )
+  const handleRemoveProject = useCallback(
+    async (currentProjectId) => {
+      setOpenModal(false)
+      const result = await dispatch(deleteProject(currentProjectId))
+      if (result.payload.status === 200) {
+        navigate("/")
+      }
+    },
+    [dispatch, navigate]
   )
   return (
     <DefaultContainer authorized>
@@ -52,16 +68,27 @@ function Project() {
           <p>
             <b className="text-grey">My impact:</b> {project?.your_impact}
           </p>
-          <Button
-            onClick={() => onEdit(currentProjectId)}
-            className="mt-10 max-w-[300px]"
-          >
-            Edit
-          </Button>
+          <div className="flex justify-end mt-10 w-full">
+            <Button
+              onClick={() => onEdit(currentProjectId)}
+              className="mx-[20px]"
+            >
+              Edit
+            </Button>
+            <Button onClick={() => setOpenModal(true)} className="mx-0">
+              Remove project
+            </Button>
+          </div>
+          {openModal && (
+            <DeleteProjectConfirmModal
+              setOpenModal={() => setOpenModal(false)}
+              removeProject={() => handleRemoveProject(currentProjectId)}
+            />
+          )}
         </div>
       </ContentContainer>
     </DefaultContainer>
   )
 }
 
-export default Project
+export default ProjectView

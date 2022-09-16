@@ -53,9 +53,22 @@ export const getProject = createAsyncThunk(
 // PUT update project
 export const putProject = createAsyncThunk(
   "project",
-  async (projectId, project, thunkAPI) => {
+  async ({ projectId, projectData }, thunkAPI) => {
     try {
-      return await instance.put(`/project/${projectId}`, project)
+      return await instance.put(`/project/${projectId}`, projectData)
+    } catch (error) {
+      toast(error.message)
+      return thunkAPI.rejectWithValue(getErrorMessage(error))
+    }
+  }
+)
+// DELETE remove project
+export const deleteProject = createAsyncThunk(
+  "project",
+  async (projectId, thunkAPI) => {
+    try {
+      return await instance.delete(`/project/${projectId}`)
+      // return await instance.get("/projects")
     } catch (error) {
       toast(error.message)
       return thunkAPI.rejectWithValue(getErrorMessage(error))

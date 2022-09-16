@@ -50,7 +50,9 @@ function ProjectEdit() {
       Object.entries(formDataValue).forEach(([key, value]) => {
         formData.append(key, value)
       })
-      const result = await dispatch(putProject(project._id, formData))
+      const result = await dispatch(
+        putProject({ projectId: project._id, projectData: formData })
+      )
       if (result.payload.status === 200) {
         navigate(`/project/${project._id}`)
       }
