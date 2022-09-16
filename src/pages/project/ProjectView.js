@@ -11,7 +11,7 @@ import ContentContainer from "../../layout/ContentContainer"
 import { Title } from "../../elements/Title"
 import { Button } from "../../elements/Button"
 import { REACT_APP_BE_HOST } from "../../config/index"
-import DeleteProjectConfirmModal from "../../layout/DeleteProjectConfirmModal"
+import DeleteConfirmModal from "../../layout/DeleteConfirmModal"
 
 const MAIN_IMAGE_PLACEHOLDER =
   "https://blog.hubspot.com/hubfs/Team%20deciding%20on%20membership%20website%20builder.jpg"
@@ -79,12 +79,12 @@ function ProjectView() {
               Remove project
             </Button>
           </div>
-          {openModal && (
-            <DeleteProjectConfirmModal
-              setOpenModal={() => setOpenModal(false)}
-              removeProject={() => handleRemoveProject(currentProjectId)}
-            />
-          )}
+          <DeleteConfirmModal
+            onConfirm={() => handleRemoveProject(currentProjectId)}
+            onDecline={() => setOpenModal(false)}
+            isVisible={openModal}
+            modalQuestion="Are you sure you want to delete this project?"
+          />
         </div>
       </ContentContainer>
     </DefaultContainer>
