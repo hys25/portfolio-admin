@@ -8,6 +8,12 @@
 -  `yarn install`
 -  `yarn start` to run project
 
+or just use docker:
+```bash
+$ docker-compose up -d --build
+```
+Navigate to http://localhost:3000 in your browser
+
 ## Protfolio backend
 [https://github.com/hys25/portfolio-backend](https://github.com/hys25/portfolio-backend)
 
