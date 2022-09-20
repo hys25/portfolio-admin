@@ -13,6 +13,7 @@ const initialState = {
   isLoading: false,
   message: "",
 }
+
 const CURRENT_SLICE_ROUTE = "/project"
 // POST project
 export const postProject = createAsyncThunk(
@@ -31,7 +32,7 @@ export const getProjects = createAsyncThunk(
   "/projects",
   async (_, thunkAPI) => {
     try {
-      return await instance.get("/projects")
+      return await instance.get("/project")
     } catch (error) {
       toast(error.message)
       return thunkAPI.rejectWithValue(getErrorMessage(error))

@@ -7,6 +7,7 @@ import SignUp from "./pages/auth/SignUp"
 import ProjectCreate from "./pages/project/ProjectCreate"
 import ProjectView from "./pages/project/ProjectView"
 import ProjectEdit from "./pages/project/ProjectEdit"
+import AddSkill from "./pages/skills/AddSkill"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/new-project" element={<ProjectCreate />} />
         <Route path="/project/:id" element={<ProjectView />} />
         <Route path="/project/edit/:id" element={<ProjectEdit />} />
+        <Route path="/skills" element={<AddSkill />} />
       </Routes>
       <ToastContainer />
     </>
