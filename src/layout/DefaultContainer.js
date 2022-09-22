@@ -16,13 +16,13 @@ const dummyNav = [
   },
   {
     id: 2,
-    name: "new project",
+    name: "add project",
     slug: "/new-project",
   },
   {
     id: 3,
-    name: "new skill",
-    slug: "/new-skill",
+    name: "add skill",
+    slug: "/skill",
   },
   {
     id: 4,

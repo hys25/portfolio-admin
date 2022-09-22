@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="32px" viewBox="0 0 28 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>update-arrows-svgrepo-com</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="update-arrows-svgrepo-com" fill="#FFFFFF" fill-rule="nonzero">
+            <path d="M23.883,6.086 L21.063,8.918 C22.953,10.809 24,13.324 24,16 C24,21.516 19.516,26 14,26 L14,24 L10,28 L14,32 L14,30 C21.719,30 28,23.719 28,16 C28,12.254 26.539,8.734 23.883,6.086 Z" id="Path"></path>
+            <path d="M18,4 L14,0 L14,2 C6.281,2 0,8.281 0,16 C0,19.746 1.461,23.266 4.117,25.914 L6.937,23.082 C5.047,21.191 4,18.676 4,16 C4,10.484 8.484,6 14,6 L14,8 L18,4 Z" id="Path"></path>
+        </g>
+    </g>
+</svg>

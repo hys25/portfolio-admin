@@ -2,10 +2,16 @@ import { useState } from "react"
 import { ReactComponent as ShowPasswordIcon } from "../assets/icons/password-icon-eye-24.svg"
 import { ReactComponent as HidenPasswordIcon } from "../assets/icons/password-icon-eye-24-closed.svg"
 
+const SIZE = {
+  small: "h-[30px] px-4",
+  default: "h-[60px] px-5",
+}
+
 export function StyledInput({
   className,
   classNameWrapper = "w-full",
   error = null,
+  size = "default",
   ...props
 }) {
   return (
@@ -13,7 +19,7 @@ export function StyledInput({
       className={`flex flex-col relative items-start text-black mb-[10px] ${classNameWrapper}`}
     >
       <input
-        className={`text-white px-5 w-full h-[60px] text-14 appearance-none focus:outline-none bg-greyDark placeholder:text-grey ${className}`}
+        className={`text-white w-full text-14 appearance-none focus:outline-none bg-greyDark placeholder:text-grey ${SIZE[size]} ${className}`}
         {...props}
       />
       {error && <div className="text-error text-12">{error}</div>}
