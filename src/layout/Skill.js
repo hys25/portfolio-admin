@@ -1,10 +1,6 @@
 import { useState, useCallback } from "react"
 import { useDispatch } from "react-redux"
-import {
-  putSkill,
-  getSkills,
-  deleteSkill,
-} from "../features/skills/skillsSlice"
+import { putSkill, getSkills, deleteSkill } from "../features/skill/skillSlice"
 import { StyledInput } from "../elements/Input"
 import { ReactComponent as UpdateIcon } from "../assets/icons/update-icon.svg"
 import { ReactComponent as EditIcon } from "../assets/icons/edit-icon.svg"
@@ -12,20 +8,20 @@ import { ReactComponent as RemoveIcon } from "../assets/icons/remove-icon.svg"
 
 function Skill({ skill }) {
   const dispatch = useDispatch()
-  const [inputValue, setInputValue] = useState()
+  const [skillValue, setSkillValue] = useState()
   const [editInput, setEditInput] = useState(false)
   const handleUpdateSubmit = useCallback(
     async (event) => {
       event.preventDefault()
       const result = await dispatch(
-        putSkill({ skillId: skill._id, skillData: { skill_name: inputValue } })
+        putSkill({ skillId: skill._id, skillData: { skill_name: skillValue } })
       )
       if (result.payload.status === 200) {
         dispatch(getSkills())
         setEditInput(false)
       }
     },
-    [dispatch, inputValue, setEditInput]
+    [dispatch, skillValue, setEditInput]
   )
   const onDeleteClick = useCallback(
     async (event) => {
@@ -44,14 +40,13 @@ function Skill({ skill }) {
         <>
           <StyledInput
             size="small"
-            value={inputValue}
-            onChange={(event) => setInputValue(event.target.value)}
+            value={skillValue}
+            onChange={(event) => setSkillValue(event.target.value)}
             name="skill"
             id="skill"
             placeholder="Skill"
             className="font-normal rounded-full"
             classNameWrapper="w-1/2 mb-0"
-            // error={errors.project_name}
           />
           <UpdateIcon
             width={20}
@@ -68,7 +63,7 @@ function Skill({ skill }) {
             height={20}
             className="cursor-pointer min-w-[12px] ml-[20px]"
             onClick={() => {
-              setInputValue(skill.skill_name)
+              setSkillValue(skill.skill_name)
               setEditInput(true)
             }}
           />

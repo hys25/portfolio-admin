@@ -13,7 +13,7 @@ const initialState = {
   message: "",
 }
 
-const CURRENT_SLICE_ROUTE = "/skills"
+const CURRENT_SLICE_ROUTE = "/skill"
 // GET all skills
 export const getSkills = createAsyncThunk("getSkills", async (_, thunkAPI) => {
   try {
@@ -42,7 +42,7 @@ export const putSkill = createAsyncThunk(
   "putSkill",
   async ({ skillId, skillData }, thunkAPI) => {
     try {
-      return await instance.put(`/skills/${skillId}`, skillData)
+      return await instance.put(`${CURRENT_SLICE_ROUTE}/${skillId}`, skillData)
     } catch (error) {
       toast(error.message)
       return thunkAPI.rejectWithValue(getErrorMessage(error))
@@ -55,7 +55,7 @@ export const deleteSkill = createAsyncThunk(
   "deleteSkill",
   async (skillId, thunkAPI) => {
     try {
-      return await instance.delete(`/skills/${skillId}`)
+      return await instance.delete(`${CURRENT_SLICE_ROUTE}/${skillId}`)
     } catch (error) {
       toast(error.message)
       return thunkAPI.rejectWithValue(getErrorMessage(error))
@@ -63,8 +63,8 @@ export const deleteSkill = createAsyncThunk(
   }
 )
 
-export const skillsSlice = createSlice({
-  name: "skills",
+export const skillSlice = createSlice({
+  name: "skill",
   initialState,
   reducers: {
     reset: (state) => {
@@ -107,5 +107,5 @@ export const skillsSlice = createSlice({
   },
 })
 
-export const { reset } = skillsSlice.actions
-export default skillsSlice.reducer
+export const { reset } = skillSlice.actions
+export default skillSlice.reducer

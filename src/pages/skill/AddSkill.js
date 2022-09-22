@@ -2,7 +2,7 @@ import { useCallback, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
-import { getSkills, reset, postSkill } from "../../features/skills/skillsSlice"
+import { getSkills, reset, postSkill } from "../../features/skill/skillSlice"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import Skill from "../../layout/Skill"
@@ -13,11 +13,18 @@ import { Button } from "../../elements/Button"
 function AddSkill() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { skills } = useSelector((state) => state.skill)
   const [newSkill, setNewSkill] = useState()
+  const [disableSubmit, setDisableSubmit] = useState(true)
   const handleAddNewSkill = useCallback(
     async (event) => {
       event.preventDefault()
       setNewSkill(event.target.value)
+      if (event.target.value) {
+        setDisableSubmit(false)
+      } else {
+        setDisableSubmit(true)
+      }
     },
     [setNewSkill]
   )
@@ -41,7 +48,6 @@ function AddSkill() {
       dispatch(reset())
     }
   }, [dispatch])
-  const { skills } = useSelector((state) => state.skills)
   return (
     <DefaultContainer authorized>
       <ContentContainer>
@@ -59,6 +65,7 @@ function AddSkill() {
             onClick={(event) => onSubmitNewSkill(event)}
             type="submit"
             className="w-auto mt-[30px]"
+            disable={disableSubmit}
           >
             Submit
           </Button>

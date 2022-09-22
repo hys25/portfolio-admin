@@ -22,7 +22,7 @@ const dummyNav = [
   {
     id: 3,
     name: "add skill",
-    slug: "/skills",
+    slug: "/skill",
   },
   {
     id: 4,
