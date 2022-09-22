@@ -6,14 +6,17 @@ export function StyledInput({
   className,
   classNameWrapper = "w-full",
   error = null,
+  size = null,
   ...props
 }) {
   return (
     <div
-      className={`flex flex-col relative items-start text-black mb-[10px] ${classNameWrapper}`}
+      className={`flex flex-col relative items-start text-black mb-[10px]" ${classNameWrapper}`}
     >
       <input
-        className={`text-white px-5 w-full h-[60px] text-14 appearance-none focus:outline-none bg-greyDark placeholder:text-grey ${className}`}
+        className={`text-white w-full text-14 appearance-none focus:outline-none bg-greyDark placeholder:text-grey ${
+          size ? "h-[30px] px-4" : "h-[60px] px-5"
+        } ${className}`}
         {...props}
       />
       {error && <div className="text-error text-12">{error}</div>}

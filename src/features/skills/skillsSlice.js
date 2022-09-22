@@ -24,6 +24,19 @@ export const getSkills = createAsyncThunk("/skills", async (_, thunkAPI) => {
   }
 })
 
+// PUT update skill
+export const putSkill = createAsyncThunk(
+  "/skills/:id",
+  async ({ skillId, skillData }, thunkAPI) => {
+    try {
+      return await instance.put(`/skill/${skillId}`, skillData)
+    } catch (error) {
+      toast(error.message)
+      return thunkAPI.rejectWithValue(getErrorMessage(error))
+    }
+  }
+)
+
 export const skillsSlice = createSlice({
   name: "skills",
   initialState,
