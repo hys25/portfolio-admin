@@ -11,7 +11,7 @@ export function StyledInput({
 }) {
   return (
     <div
-      className={`flex flex-col relative items-start text-black mb-[10px]" ${classNameWrapper}`}
+      className={`flex flex-col relative items-start text-black mb-[10px] ${classNameWrapper}`}
     >
       <input
         className={`text-white w-full text-14 appearance-none focus:outline-none bg-greyDark placeholder:text-grey ${

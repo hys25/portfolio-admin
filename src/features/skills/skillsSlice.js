@@ -15,21 +15,47 @@ const initialState = {
 
 const CURRENT_SLICE_ROUTE = "/skills"
 // GET all skills
-export const getSkills = createAsyncThunk("/skills", async (_, thunkAPI) => {
+export const getSkills = createAsyncThunk("getSkills", async (_, thunkAPI) => {
   try {
-    return await instance.get("/skills")
+    return await instance.get(CURRENT_SLICE_ROUTE)
   } catch (error) {
     toast(error.message)
     return thunkAPI.rejectWithValue(getErrorMessage(error))
   }
 })
 
+// POST skill
+export const postSkill = createAsyncThunk(
+  "postSkill",
+  async (skill, thunkAPI) => {
+    try {
+      return await instance.post(CURRENT_SLICE_ROUTE, skill)
+    } catch (error) {
+      toast(error.message)
+      return thunkAPI.rejectWithValue(getErrorMessage(error))
+    }
+  }
+)
+
 // PUT update skill
 export const putSkill = createAsyncThunk(
-  "/skills/:id",
+  "putSkill",
   async ({ skillId, skillData }, thunkAPI) => {
     try {
-      return await instance.put(`/skill/${skillId}`, skillData)
+      return await instance.put(`/skills/${skillId}`, skillData)
+    } catch (error) {
+      toast(error.message)
+      return thunkAPI.rejectWithValue(getErrorMessage(error))
+    }
+  }
+)
+
+// DELETE remove skill
+export const deleteSkill = createAsyncThunk(
+  "deleteSkill",
+  async (skillId, thunkAPI) => {
+    try {
+      return await instance.delete(`/skills/${skillId}`)
     } catch (error) {
       toast(error.message)
       return thunkAPI.rejectWithValue(getErrorMessage(error))
@@ -63,6 +89,20 @@ export const skillsSlice = createSlice({
         state.error = true
         state.message = action.payload
         state.skills = null
+      })
+      .addCase(postSkill.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(postSkill.fulfilled, (state, action) => {
+        state.isLoading = false
+        state.isSuccess = true
+        state.skill = action.payload
+      })
+      .addCase(postSkill.rejected, (state, action) => {
+        state.isLoading = false
+        state.error = true
+        state.message = action.payload
+        state.skill = null
       })
   },
 })
