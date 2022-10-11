@@ -4,10 +4,10 @@ import { getErrorMessage } from "../../utils/getErrorMessage"
 
 // Get user from localStorage
 const userLS = localStorage.getItem("user_token")
-const user = userLS !== "undefined" ? JSON.parse(userLS) : null
+const userLSJSON = userLS !== "undefined" ? JSON.parse(userLS) : null
 
 const initialState = {
-  user: user || null,
+  user: userLSJSON || null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -15,22 +15,28 @@ const initialState = {
 }
 
 // SignUp user
-export const signUp = createAsyncThunk("auth/sign-up", async (thunkAPI) => {
-  try {
-    return await authService.signUp(user)
-  } catch (error) {
-    return thunkAPI.rejectWithMessage(getErrorMessage(error))
+export const signUp = createAsyncThunk(
+  "auth/sign-up",
+  async (user, thunkAPI) => {
+    try {
+      return await authService.signUp(user)
+    } catch (error) {
+      return thunkAPI.rejectWithMessage(getErrorMessage(error))
+    }
   }
-})
+)
 
 // SignIn user
-export const signIn = createAsyncThunk("auth/sign-in", async (thunkAPI) => {
-  try {
-    return await authService.signIn(user)
-  } catch (error) {
-    return thunkAPI.rejectWithMessage(getErrorMessage(error))
+export const signIn = createAsyncThunk(
+  "auth/sign-in",
+  async (user, thunkAPI) => {
+    try {
+      return await authService.signIn(user)
+    } catch (error) {
+      return thunkAPI.rejectWithMessage(getErrorMessage(error))
+    }
   }
-})
+)
 
 export const logOut = createAsyncThunk("auth/log-out", async () => {
   await authService.logOut()
