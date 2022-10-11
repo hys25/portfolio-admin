@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom"
 import { getErrorMessage } from "../../utils/getErrorMessage"
 
 //Get user from localStorage
-const user = JSON.parse(localStorage.getItem("user_token"))
+const userLS = localStorage.getItem("user_token")
+const user = userLS !== "undefined" ? JSON.parse(userLS) : null
 
 const initialState = {
   user: user ? user : null,
