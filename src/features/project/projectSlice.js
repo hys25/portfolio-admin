@@ -1,9 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import axios from "axios"
+import { toast } from "react-toastify"
 import instance from "../apiInstance"
 import { getErrorMessage } from "../../utils/getErrorMessage"
-import { ToastContainer } from "react-toastify"
-import { toast } from "react-toastify"
 
 const initialState = {
   projects: null,

@@ -5,7 +5,7 @@ const CURRENT_SLICE_ROUTE = "/auth/"
 // SignUp user
 const signUp = async (userData) => {
   const response = await instance.post(
-    CURRENT_SLICE_ROUTE + "sign-up",
+    `${CURRENT_SLICE_ROUTE}sign-up`,
     userData
   )
   if (response.data) {
@@ -17,7 +17,7 @@ const signUp = async (userData) => {
 // SignIn user
 const signIn = async (userData) => {
   const response = await instance.post(
-    CURRENT_SLICE_ROUTE + "sign-in",
+    `${CURRENT_SLICE_ROUTE}sign-in`,
     userData
   )
   if (response.data) {

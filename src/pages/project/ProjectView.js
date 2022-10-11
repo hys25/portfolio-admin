@@ -34,16 +34,13 @@ function ProjectView() {
     },
     [navigate]
   )
-  const handleRemoveProject = useCallback(
-    async (currentProjectId) => {
-      setOpenModal(false)
-      const result = await dispatch(deleteProject(currentProjectId))
-      if (result.payload.status === 200) {
-        navigate("/")
-      }
-    },
-    [dispatch, navigate]
-  )
+  const handleRemoveProject = useCallback(async () => {
+    setOpenModal(false)
+    const result = await dispatch(deleteProject(currentProjectId))
+    if (result.payload.status === 200) {
+      navigate("/")
+    }
+  }, [dispatch, navigate, currentProjectId])
   return (
     <DefaultContainer authorized>
       <ContentContainer>

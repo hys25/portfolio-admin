@@ -1,7 +1,6 @@
-import { useCallback, useState } from "react"
+import { useCallback, useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { useEffect } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { getSkills, reset, postSkill } from "../../features/skill/skillSlice"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
@@ -36,7 +35,7 @@ function AddSkill() {
         dispatch(getSkills())
       }
     },
-    [dispatch, setNewSkill, newSkill]
+    [dispatch, newSkill]
   )
   useEffect(() => {
     const isUser = localStorage.getItem("user_token")
@@ -47,7 +46,7 @@ function AddSkill() {
     return () => {
       dispatch(reset())
     }
-  }, [dispatch])
+  }, [dispatch, navigate])
   return (
     <DefaultContainer authorized>
       <ContentContainer>

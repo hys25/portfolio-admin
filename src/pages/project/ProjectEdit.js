@@ -1,12 +1,11 @@
 import { useCallback, useMemo } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { REACT_APP_BE_HOST } from "../../config/index"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { putProject } from "../../features/project/projectSlice"
 import { Title } from "../../elements/Title"
-import { Button } from "../../elements/Button"
 import ProjectForm from "../../layout/ProjectForm"
 import { validate } from "../../utils/validateFormInput"
 
@@ -57,7 +56,7 @@ function ProjectEdit() {
         navigate(`/project/${project._id}`)
       }
     },
-    [dispatch, navigate]
+    [dispatch, navigate, project]
   )
   return (
     <DefaultContainer authorized>
