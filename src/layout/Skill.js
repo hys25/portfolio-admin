@@ -21,7 +21,7 @@ function Skill({ skill }) {
         setEditInput(false)
       }
     },
-    [dispatch, skillValue, setEditInput]
+    [dispatch, skillValue, setEditInput, skill]
   )
   const onDeleteClick = useCallback(
     async (event) => {
@@ -32,7 +32,7 @@ function Skill({ skill }) {
         setEditInput(false)
       }
     },
-    [dispatch]
+    [dispatch, skill]
   )
   return (
     <div className="flex justify-center items-center h-[30px]">

@@ -1,39 +1,38 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "airbnb",
-        "plugin:prettier/recommended",
-        "plugin:react-hooks/recommended"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-      "react/react-in-jsx-scope": "off",
-      "react/jsx-props-no-spreading": "off",
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-      "react/function-component-definition": "off",
-      "react/prop-types": "off",
-      "import/prefer-default-export": "off",
-      "camelcase": "off"
-    },
-    // "overrides": [
-    //   {
-    //     "files": [ "./src/**/*.js" ]
-    //   }
-    // ],
-    "ignorePatterns": [".eslintrc.js", "postcss.config.js", "tailwind.config.js"]
-
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/function-component-definition": "off",
+    "react/prop-types": "off",
+    "import/prefer-default-export": "off",
+    "camelcase": "off",
+    "no-param-reassign": "off",
+    "no-underscore-dangle": "off"
+  },
+  // "overrides": [
+  //   {
+  //     "files": [ "./src/**/*.js" ]
+  //   }
+  // ],
+  "ignorePatterns": [".eslintrc.js", "postcss.config.js", "tailwind.config.js"]
 }

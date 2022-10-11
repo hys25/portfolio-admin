@@ -1,4 +1,3 @@
-import axios from "axios"
 import instance from "../apiInstance"
 
 const CURRENT_SLICE_ROUTE = "/auth/"
