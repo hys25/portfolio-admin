@@ -27,9 +27,6 @@ function ProjectCreate() {
       if (!mainImage) {
         validationResult.main_image = "Main image is required"
       }
-      if (!bgImage) {
-        validationResult.background_image = "Background image is required"
-      }
       if (Object.keys(validationResult).length !== 0) {
         setErrors(validationResult)
         return
