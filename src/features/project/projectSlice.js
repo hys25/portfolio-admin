@@ -30,7 +30,7 @@ export const getProjects = createAsyncThunk(
   "getProjects",
   async (_, thunkAPI) => {
     try {
-      return await instance.get("/project")
+      return await instance.get(CURRENT_SLICE_ROUTE)
     } catch (error) {
       toast(error.message)
       return thunkAPI.rejectWithValue(getErrorMessage(error))
@@ -42,7 +42,10 @@ export const getProject = createAsyncThunk(
   "getProject",
   async (projectId, thunkAPI) => {
     try {
-      return await instance.get(`/project/${projectId}`, projectId)
+      return await instance.get(
+        `${CURRENT_SLICE_ROUTE}/${projectId}`,
+        projectId
+      )
     } catch (error) {
       toast(error.message)
       return thunkAPI.rejectWithValue(getErrorMessage(error))
@@ -54,7 +57,10 @@ export const putProject = createAsyncThunk(
   "putProject",
   async ({ projectId, projectData }, thunkAPI) => {
     try {
-      return await instance.put(`/project/${projectId}`, projectData)
+      return await instance.put(
+        `${CURRENT_SLICE_ROUTE}/${projectId}`,
+        projectData
+      )
     } catch (error) {
       toast(error.message)
       return thunkAPI.rejectWithValue(getErrorMessage(error))
@@ -66,7 +72,7 @@ export const deleteProject = createAsyncThunk(
   "deleteProject",
   async (projectId, thunkAPI) => {
     try {
-      return await instance.delete(`/project/${projectId}`)
+      return await instance.delete(`${CURRENT_SLICE_ROUTE}/${projectId}`)
     } catch (error) {
       toast(error.message)
       return thunkAPI.rejectWithValue(getErrorMessage(error))

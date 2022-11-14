@@ -32,7 +32,7 @@ const dummyNav = [
   {
     id: 5,
     name: "messages",
-    slug: "/messages",
+    slug: "/message",
   },
   {
     id: 6,
