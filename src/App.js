@@ -9,6 +9,7 @@ import ProjectView from "./pages/project/ProjectView"
 import ProjectEdit from "./pages/project/ProjectEdit"
 import AddSkill from "./pages/skill/AddSkill"
 import Messages from "./pages/messages/Messages"
+import MessageView from "./pages/messages/MessageView"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/project/edit/:id" element={<ProjectEdit />} />
         <Route path="/skill" element={<AddSkill />} />
         <Route path="/message" element={<Messages />} />
+        <Route path="/message/:id" element={<MessageView />} />
       </Routes>
       <ToastContainer />
     </>
