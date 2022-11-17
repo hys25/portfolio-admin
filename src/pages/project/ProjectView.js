@@ -45,7 +45,7 @@ function ProjectView() {
     <DefaultContainer authorized>
       <ContentContainer>
         <Title className="font-bold mb-[50px]">{project?.project_name}</Title>
-        <div className="flex flex-col mx-auto w-full text-white max-w-[700px]">
+        <div className="flex flex-col mx-auto w-full text-white">
           <img
             alt="Project"
             className="object-cover w-full h-auto mb-[30px] max-h-[450px]"

@@ -51,7 +51,7 @@ function AddSkill() {
     <DefaultContainer authorized>
       <ContentContainer>
         <Title className="mb-[50px]">Add new skill</Title>
-        <div className="mx-auto w-full max-w-[700px]">
+        <div className="mx-auto w-full">
           <StyledInput
             value={newSkill || ""}
             onChange={handleAddNewSkill}
