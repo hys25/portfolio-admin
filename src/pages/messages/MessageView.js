@@ -10,7 +10,7 @@ import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { Button } from "../../elements/Button"
 import DeleteConfirmModal from "../../layout/DeleteConfirmModal"
-import { convertDateAndTime } from "../../utils/convertDateAndTime"
+import { DateAndTime } from "../../elements/DateAndTime"
 import { ReactComponent as ArrowBack } from "../../assets/icons/arrow-back.svg"
 
 function MessageView() {
@@ -54,7 +54,7 @@ function MessageView() {
               </span>
             </p>
             <div className="whitespace-nowrap">
-              {convertDateAndTime(message.createdAt)}
+              <DateAndTime date={message.createdAt} />
             </div>
           </div>
           <p className="mt-6 text-white">{message?.message}</p>

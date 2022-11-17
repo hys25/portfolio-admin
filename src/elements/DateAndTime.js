@@ -1,4 +1,4 @@
-export function convertDateAndTime(date) {
+export function DateAndTime({ date, className }) {
   const month = [
     "Jan",
     "Feb",
@@ -14,7 +14,7 @@ export function convertDateAndTime(date) {
     "Dec",
   ]
   return (
-    <div className="w-full text-white">
+    <div className={`w-full text-white ${className}`}>
       <span className="mr-1">{month[new Date(date).getMonth()]}</span>
       {new Date(date).getDate()}, {new Date(date).getFullYear()},
       <span className="ml-1">
@@ -23,3 +23,4 @@ export function convertDateAndTime(date) {
     </div>
   )
 }
+export default DateAndTime

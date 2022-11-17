@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { getMessages, reset } from "../../features/message/messageSlice"
-import { convertDateAndTime } from "../../utils/convertDateAndTime"
+import { DateAndTime } from "../../elements/DateAndTime"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { Title } from "../../elements/Title"
@@ -42,7 +42,7 @@ function Messages() {
                 </p>
               </div>
               <p className="flex justify-end ml-5 whitespace-nowrap min-w-[150px]">
-                {convertDateAndTime(message.createdAt)}
+                <DateAndTime date={message.createdAt} />
               </p>
             </Link>
           ))}
