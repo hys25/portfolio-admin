@@ -12,6 +12,7 @@ export function StyledInput({
   classNameWrapper = "w-full",
   error = null,
   size = "default",
+  firstInputRef,
   ...props
 }) {
   return (
@@ -20,6 +21,7 @@ export function StyledInput({
     >
       <input
         className={`text-white w-full text-14 appearance-none focus:outline-none bg-greyDark placeholder:text-grey ${SIZE[size]} ${className}`}
+        ref={firstInputRef}
         {...props}
       />
       {error && <div className="text-error text-12">{error}</div>}

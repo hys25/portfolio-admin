@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect, useRef } from "react"
 import useForm from "../hooks/useForm"
 import { StyledInput, StyledTextarea } from "../elements/Input"
 import { Checkbox } from "../elements/Checkbox"
@@ -19,6 +19,7 @@ function ProjectForm({
   previousMainImage = null,
   previousBackgroundImage = null,
 }) {
+  const firstInputRef = useRef(null)
   const [errors, setErrors] = useState({})
   const [mainImage, setMainImage] = useState()
   const [bgImage, setBgImage] = useState()
@@ -43,6 +44,9 @@ function ProjectForm({
     },
     [setBgImage]
   )
+  useEffect(() => {
+    firstInputRef.current.focus()
+  })
   return (
     <form
       onSubmit={(event) =>
@@ -59,6 +63,7 @@ function ProjectForm({
           placeholder="Project name"
           classNameWrapper="w-2/3 pr-[10px]"
           error={errors.project_name}
+          firstInputRef={firstInputRef}
         />
         <Checkbox
           name="main_project"

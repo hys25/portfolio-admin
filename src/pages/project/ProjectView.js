@@ -55,16 +55,30 @@ function ProjectView() {
                 : MAIN_IMAGE_PLACEHOLDER
             }
           />
-          <p className="mb-[20px]">
-            <b className="text-grey">Project description:</b>{" "}
-            {project?.project_description}
-          </p>
-          <p className="mb-[20px]">
-            <b className="text-grey">Project stack:</b> {project?.project_stack}
-          </p>
-          <p>
-            <b className="text-grey">My impact:</b> {project?.your_impact}
-          </p>
+          <div className="flex mb-4 text-white md:mb-1 md:text-[14px]">
+            <span className="whitespace-nowrap min-w-[150px] text-grey">
+              Project description:
+            </span>
+            <p className="w-full font-light whitespace-pre-wrap">
+              {project?.project_description}
+            </p>
+          </div>
+          <div className="flex mb-4 text-white md:mb-1 md:text-[14px]">
+            <span className="whitespace-nowrap min-w-[150px] text-grey">
+              Project stack:
+            </span>
+            <p className="w-full font-light whitespace-pre-wrap">
+              {project?.project_stack}
+            </p>
+          </div>
+          <div className="flex mb-4 text-white md:mb-1 md:text-[14px]">
+            <span className="whitespace-nowrap min-w-[150px] text-grey">
+              My impact:
+            </span>
+            <p className="w-full font-light whitespace-pre-wrap">
+              {project?.your_impact}
+            </p>
+          </div>
           <div className="flex justify-end mt-10 w-full">
             <Button
               onClick={() => onEdit(currentProjectId)}
