@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import Projects from "./pages/project/Projects"
+import ProjectList from "./pages/project/ProjectList"
 import SignIn from "./pages/auth/SignIn"
 import SignUp from "./pages/auth/SignUp"
 import ProjectCreate from "./pages/project/ProjectCreate"
@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Projects />} />
+        <Route path="/" element={<ProjectList />} />
         <Route path="/auth/sign-in" element={<SignIn />} />
         <Route path="/auth/sign-up" element={<SignUp />} />
         <Route path="/new-project" element={<ProjectCreate />} />
