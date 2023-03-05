@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import ProjectListItem from "./../pages/project/ProjectListItem"
 
-function DragAndDropList({ setItemsData, itemsData }) {
-  console.log("itemsData", itemsData)
+function DragAndDropList({ setItemsData, itemsData, droppableId }) {
   const onDragEnd = ({ destination, source, draggableId }) => {
     if (!destination || destination.index === source.index) {
       return
@@ -23,7 +22,7 @@ function DragAndDropList({ setItemsData, itemsData }) {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="droppable">
+      <Droppable droppableId={droppableId}>
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
             {itemsData?.map((item, index) => (

@@ -11,22 +11,27 @@ function ProjectList() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { projects } = useSelector((state) => state.project)
-  const mainProjects = useMemo(
-    () => projects?.filter((project) => project.main_project === true),
-    [projects]
-  )
-  const otherProjects = useMemo(
-    () => projects?.filter((project) => project.main_project === false),
-    [projects]
-  )
+
+  const [mainProjects, otherProjects] = useMemo(() => {
+    const main = []
+    const other = []
+    projects?.forEach((project) => {
+      if (project?.main_project === true) {
+        main.push(project)
+      } else if (project?.main_project === false) {
+        other.push(project)
+      }
+    })
+    return [main, other]
+  }, [projects])
 
   const [mainProjectsList, setMainProjectsList] = useState(mainProjects)
   const [otherProjectsList, setOtherProjectsList] = useState(otherProjects)
 
   useEffect(() => {
     setMainProjectsList(mainProjects)
-    setOtherProjectsList(otherProjectsList)
-  }, [mainProjects, otherProjectsList])
+    setOtherProjectsList(otherProjects)
+  }, [mainProjects, otherProjects])
 
   useEffect(() => {
     const isUser = localStorage.getItem("user_token")
@@ -48,6 +53,7 @@ function ProjectList() {
             List of main projects:
           </h2>
           <DragAndDropList
+            droppableId="mainProjectsList"
             itemsData={mainProjectsList}
             setItemsData={setMainProjectsList}
           />
@@ -55,6 +61,7 @@ function ProjectList() {
             List of other projects:
           </h2>
           <DragAndDropList
+            droppableId="otherProjectsList"
             itemsData={otherProjectsList}
             setItemsData={setOtherProjectsList}
           />
