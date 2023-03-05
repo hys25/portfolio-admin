@@ -1,11 +1,10 @@
 import { useSelector, useDispatch } from "react-redux"
 import { useState, useEffect, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import { getProjects, reset } from "../../features/project/projectSlice"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
-import ProjectListItem from "./ProjectListItem"
+import DragAndDropList from "../../elements/DragAndDropList"
 import { Title } from "../../elements/Title"
 
 function ProjectList() {
@@ -16,15 +15,18 @@ function ProjectList() {
     () => projects?.filter((project) => project.main_project === true),
     [projects]
   )
-  const otherProjects = projects?.filter(
-    (project) => project.main_project === false
+  const otherProjects = useMemo(
+    () => projects?.filter((project) => project.main_project === false),
+    [projects]
   )
 
   const [mainProjectsList, setMainProjectsList] = useState(mainProjects)
+  const [otherProjectsList, setOtherProjectsList] = useState(otherProjects)
 
   useEffect(() => {
     setMainProjectsList(mainProjects)
-  }, [mainProjects])
+    setOtherProjectsList(otherProjectsList)
+  }, [mainProjects, otherProjectsList])
 
   useEffect(() => {
     const isUser = localStorage.getItem("user_token")
@@ -37,21 +39,6 @@ function ProjectList() {
     }
   }, [navigate, dispatch])
 
-  const onDragEnd = ({ destination, source, draggableId }) => {
-    if (!destination || destination.index === source.index) {
-      return
-    }
-    const reordered = [...mainProjectsList]
-
-    reordered.splice(source.index, 1)
-    reordered.splice(
-      destination.index,
-      0,
-      mainProjects.filter(({ _id }) => _id.toString() === draggableId)[0]
-    )
-    setMainProjectsList(reordered)
-  }
-
   return (
     <DefaultContainer authorized>
       <ContentContainer>
@@ -60,38 +47,17 @@ function ProjectList() {
           <h2 className="mb-4 font-bold text-white uppercase">
             List of main projects:
           </h2>
-          <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="droppable">
-              {(provided) => (
-                <div ref={provided.innerRef} {...provided.droppableProps}>
-                  {mainProjectsList?.map((project, index) => (
-                    <Draggable
-                      key={project?._id.toString()}
-                      draggableId={project?._id.toString()}
-                      index={index}
-                    >
-                      {(innerProvided) => (
-                        <div
-                          {...innerProvided.draggableProps}
-                          {...innerProvided.dragHandleProps}
-                          ref={innerProvided.innerRef}
-                        >
-                          <ProjectListItem projectData={project} />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </DragDropContext>
+          <DragAndDropList
+            itemsData={mainProjectsList}
+            setItemsData={setMainProjectsList}
+          />
           <h2 className="mt-8 mb-4 font-bold text-white uppercase">
             List of other projects:
           </h2>
-          {otherProjects?.map((project) => (
-            <ProjectListItem projectData={project} key={project._id} />
-          ))}
+          <DragAndDropList
+            itemsData={otherProjectsList}
+            setItemsData={setOtherProjectsList}
+          />
         </div>
       </ContentContainer>
     </DefaultContainer>
