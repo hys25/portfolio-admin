@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { toast } from "react-toastify"
 import instance from "../apiInstance"
 import { getErrorMessage } from "../../utils/getErrorMessage"
@@ -13,6 +14,19 @@ const initialState = {
 }
 
 const CURRENT_SLICE_ROUTE = "/project"
+
+export const projectsApi = createApi({
+  reducerPath: "projectsApi",
+  baseQuery: fetchBaseQuery({ baseUrl: instance.defaults.baseURL }),
+  endpoints: (builder) => ({
+    getAllProjects: builder.query({
+      query: () => CURRENT_SLICE_ROUTE,
+    }),
+  })
+})
+
+export const { useGetAllProjectsQuery } = projectsApi
+
 // POST project
 export const postProject = createAsyncThunk(
   "postProject",
