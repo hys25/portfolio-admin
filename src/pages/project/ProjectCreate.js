@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { Title } from "../../elements/Title"
-import { postProject } from "../../features/project/projectSlice"
-import { useAddProjectMutation } from "../../features/project/projectSlice"
+import { useAddProjectMutation } from "../../features/project/projectApi"
 import { validate } from "../../utils/validateFormInput"
 import ProjectForm from "../../layout/ProjectForm"
 
@@ -42,7 +41,7 @@ function ProjectCreate() {
         navigate(`/project/${result._id}`)
       }
     },
-    [navigate]
+    [navigate, addProject]
   )
   return (
     <DefaultContainer authorized>

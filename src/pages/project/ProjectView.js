@@ -1,11 +1,9 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import {
-  getProject,
-  reset,
-  deleteProject,
-} from "../../features/project/projectSlice"
-import { useGetProjectQuery, useDeleteProjectMutation } from "../../features/project/projectSlice"
+  useGetProjectQuery,
+  useDeleteProjectMutation,
+} from "../../features/project/projectApi"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { Title } from "../../elements/Title"
@@ -20,7 +18,7 @@ function ProjectView() {
   const navigate = useNavigate()
   const [openModal, setOpenModal] = useState(false)
   const { id: currentProjectId } = useParams()
-  const {data: project} = useGetProjectQuery(currentProjectId)
+  const { data: project } = useGetProjectQuery(currentProjectId)
   const [deleteProject] = useDeleteProjectMutation(currentProjectId)
   const onEdit = useCallback(
     (id) => {
@@ -34,7 +32,7 @@ function ProjectView() {
     if (result) {
       navigate("/")
     }
-  }, [navigate, currentProjectId])
+  }, [deleteProject, currentProjectId, navigate])
   return (
     <DefaultContainer authorized>
       <ContentContainer>

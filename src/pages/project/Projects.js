@@ -1,8 +1,6 @@
-import { useSelector, useDispatch } from "react-redux"
 import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { getProjects, reset } from "../../features/project/projectSlice"
-import { useGetAllProjectsQuery } from "../../features/project/projectSlice"
+import { useGetAllProjectsQuery } from "../../features/project/projectApi"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { Title } from "../../elements/Title"
@@ -13,7 +11,7 @@ const MAIN_IMAGE_PLACEHOLDER =
 
 function Projects() {
   const navigate = useNavigate()
-  const {data: projects} = useGetAllProjectsQuery()
+  const { data: projects } = useGetAllProjectsQuery()
   useEffect(() => {
     const isUser = localStorage.getItem("user_token")
     if (!isUser) {
