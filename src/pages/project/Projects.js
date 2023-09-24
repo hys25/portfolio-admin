@@ -12,21 +12,14 @@ const MAIN_IMAGE_PLACEHOLDER =
   "https://blog.hubspot.com/hubfs/Team%20deciding%20on%20membership%20website%20builder.jpg"
 
 function Projects() {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
-  // const { projects } = useSelector((state) => state.project)
   const {data: projects} = useGetAllProjectsQuery()
   useEffect(() => {
     const isUser = localStorage.getItem("user_token")
     if (!isUser) {
       navigate("/auth/sign-in")
     }
-    dispatch(getProjects())
-    return () => {
-      dispatch(reset())
-    }
-  }, [navigate, dispatch])
-
+  }, [navigate])
   return (
     <DefaultContainer authorized>
       <ContentContainer>

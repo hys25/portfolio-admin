@@ -1,16 +1,17 @@
 import { useCallback } from "react"
-import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { Title } from "../../elements/Title"
 import { postProject } from "../../features/project/projectSlice"
+import { useAddProjectMutation } from "../../features/project/projectSlice"
 import { validate } from "../../utils/validateFormInput"
 import ProjectForm from "../../layout/ProjectForm"
 
 function ProjectCreate() {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const [addProject] = useAddProjectMutation()
 
   const onSubmit = useCallback(
     async (event, formDataValue, setErrors, mainImage, bgImage) => {
@@ -36,12 +37,12 @@ function ProjectCreate() {
       Object.entries(formDataValue).forEach(([key, value]) => {
         formData.append(key, value)
       })
-      const result = await dispatch(postProject(formData))
-      if (result.payload.status === 200) {
-        navigate(`/project/${result.payload.data._id}`)
+      const result = await addProject(formData).unwrap()
+      if (result) {
+        navigate(`/project/${result._id}`)
       }
     },
-    [dispatch, navigate]
+    [navigate]
   )
   return (
     <DefaultContainer authorized>

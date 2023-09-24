@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import {
   getProject,
   reset,
   deleteProject,
 } from "../../features/project/projectSlice"
+import { useGetProjectQuery, useDeleteProjectMutation } from "../../features/project/projectSlice"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { Title } from "../../elements/Title"
@@ -18,16 +18,10 @@ const MAIN_IMAGE_PLACEHOLDER =
 
 function ProjectView() {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const [openModal, setOpenModal] = useState(false)
-  const { project } = useSelector((state) => state.project)
   const { id: currentProjectId } = useParams()
-  useEffect(() => {
-    dispatch(getProject(currentProjectId))
-    return () => {
-      dispatch(reset())
-    }
-  }, [navigate, dispatch, currentProjectId])
+  const {data: project} = useGetProjectQuery(currentProjectId)
+  const [deleteProject] = useDeleteProjectMutation(currentProjectId)
   const onEdit = useCallback(
     (id) => {
       navigate(`/project/edit/${id}`)
@@ -36,11 +30,11 @@ function ProjectView() {
   )
   const handleRemoveProject = useCallback(async () => {
     setOpenModal(false)
-    const result = await dispatch(deleteProject(currentProjectId))
-    if (result.payload.status === 200) {
+    const result = await deleteProject(currentProjectId)
+    if (result) {
       navigate("/")
     }
-  }, [dispatch, navigate, currentProjectId])
+  }, [navigate, currentProjectId])
   return (
     <DefaultContainer authorized>
       <ContentContainer>
