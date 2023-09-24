@@ -1,18 +1,19 @@
 import { useCallback, useMemo } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { REACT_APP_BE_HOST } from "../../config/index"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { putProject } from "../../features/project/projectSlice"
+import { useGetProjectQuery, usePutProjectMutation } from "../../features/project/projectSlice"
 import { Title } from "../../elements/Title"
 import ProjectForm from "../../layout/ProjectForm"
 import { validate } from "../../utils/validateFormInput"
 
 function ProjectEdit() {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { project } = useSelector((state) => state.project)
+  const { id: currentProjectId } = useParams()
+  const {data: project} = useGetProjectQuery(currentProjectId)
+  const [editProject] = usePutProjectMutation()
   const defaultValues = useMemo(
     () => ({
       project_name: project.project_name,
@@ -49,14 +50,13 @@ function ProjectEdit() {
       Object.entries(formDataValue).forEach(([key, value]) => {
         formData.append(key, value)
       })
-      const result = await dispatch(
-        putProject({ projectId: project._id, projectData: formData })
-      )
-      if (result.payload.status === 200) {
+      const result = await editProject({ projectId: project._id, projectData: formData }).unwrap()
+      if (result) {
         navigate(`/project/${project._id}`)
       }
-    },
-    [dispatch, navigate, project]
+      },
+      [navigate, project]
+
   )
   return (
     <DefaultContainer authorized>
