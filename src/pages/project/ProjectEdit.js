@@ -3,8 +3,10 @@ import { useNavigate, useParams } from "react-router-dom"
 import { REACT_APP_BE_HOST } from "../../config/index"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
-import { putProject } from "../../features/project/projectSlice"
-import { useGetProjectQuery, usePutProjectMutation } from "../../features/project/projectSlice"
+import {
+  useGetProjectQuery,
+  usePutProjectMutation,
+} from "../../features/project/projectApi"
 import { Title } from "../../elements/Title"
 import ProjectForm from "../../layout/ProjectForm"
 import { validate } from "../../utils/validateFormInput"
@@ -12,7 +14,7 @@ import { validate } from "../../utils/validateFormInput"
 function ProjectEdit() {
   const navigate = useNavigate()
   const { id: currentProjectId } = useParams()
-  const {data: project} = useGetProjectQuery(currentProjectId)
+  const { data: project } = useGetProjectQuery(currentProjectId)
   const [editProject] = usePutProjectMutation()
   const defaultValues = useMemo(
     () => ({
@@ -50,13 +52,15 @@ function ProjectEdit() {
       Object.entries(formDataValue).forEach(([key, value]) => {
         formData.append(key, value)
       })
-      const result = await editProject({ projectId: project._id, projectData: formData }).unwrap()
+      const result = await editProject({
+        projectId: project._id,
+        projectData: formData,
+      }).unwrap()
       if (result) {
         navigate(`/project/${project._id}`)
       }
-      },
-      [navigate, project]
-
+    },
+    [editProject, navigate, project._id]
   )
   return (
     <DefaultContainer authorized>
