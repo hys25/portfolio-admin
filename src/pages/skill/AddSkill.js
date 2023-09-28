@@ -1,7 +1,9 @@
 import { useCallback, useState, useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { getSkills, reset, postSkill } from "../../features/skill/skillSlice"
+import {
+  useGetAllSkillsQuery,
+  useAddSkillMutation,
+} from "../../features/skill/skillsApi"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import Skill from "../../layout/Skill"
@@ -10,9 +12,11 @@ import { StyledInput } from "../../elements/Input"
 import { Button } from "../../elements/Button"
 
 function AddSkill() {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { skills } = useSelector((state) => state.skill)
+
+  const { data: skills } = useGetAllSkillsQuery()
+  const [addSkill] = useAddSkillMutation()
+
   const [newSkill, setNewSkill] = useState()
   const [disableSubmit, setDisableSubmit] = useState(true)
   const handleAddNewSkill = useCallback(
@@ -30,23 +34,19 @@ function AddSkill() {
   const onSubmitNewSkill = useCallback(
     async (event) => {
       event.preventDefault()
-      const result = await dispatch(postSkill({ skill_name: newSkill }))
-      if (result.payload.status === 200) {
-        dispatch(getSkills())
+      const result = await addSkill({ skill_name: newSkill })
+      if (result) {
+        navigate(`/skill`)
       }
     },
-    [dispatch, newSkill]
+    [addSkill, navigate, newSkill]
   )
   useEffect(() => {
     const isUser = localStorage.getItem("user_token")
     if (!isUser) {
       navigate("/auth/sign-in")
     }
-    dispatch(getSkills())
-    return () => {
-      dispatch(reset())
-    }
-  }, [dispatch, navigate])
+  }, [navigate])
   return (
     <DefaultContainer authorized>
       <ContentContainer>
