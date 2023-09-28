@@ -15,7 +15,7 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         {/* <ApiProvider api={projectsApi}> */}
-          <App />
+        <App />
         {/* </ApiProvider> */}
       </Provider>
     </BrowserRouter>

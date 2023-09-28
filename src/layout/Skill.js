@@ -1,38 +1,42 @@
 import { useState, useCallback } from "react"
-import { useDispatch } from "react-redux"
-import { putSkill, getSkills, deleteSkill } from "../features/skill/skillSlice"
+import {
+  usePutSkillMutation,
+  useDeleteSkillMutation,
+} from "../features/skill/skillsApi"
 import { StyledInput } from "../elements/Input"
 import { ReactComponent as UpdateIcon } from "../assets/icons/update-icon.svg"
 import { ReactComponent as EditIcon } from "../assets/icons/edit-icon.svg"
 import { ReactComponent as RemoveIcon } from "../assets/icons/remove-icon.svg"
 
 function Skill({ skill }) {
-  const dispatch = useDispatch()
+  const [putSkill] = usePutSkillMutation()
+  const [deleteSkill] = useDeleteSkillMutation()
+
   const [skillValue, setSkillValue] = useState()
   const [editInput, setEditInput] = useState(false)
-  const handleUpdateSubmit = useCallback(
+
+  const handleSubmit = useCallback(
     async (event) => {
       event.preventDefault()
-      const result = await dispatch(
-        putSkill({ skillId: skill._id, skillData: { skill_name: skillValue } })
-      )
-      if (result.payload.status === 200) {
-        dispatch(getSkills())
+      const result = await putSkill({
+        skillId: skill._id,
+        skillData: { skill_name: skillValue },
+      })
+      if (result) {
         setEditInput(false)
       }
     },
-    [dispatch, skillValue, setEditInput, skill]
+    [putSkill, skill, skillValue]
   )
   const onDeleteClick = useCallback(
     async (event) => {
       event.preventDefault()
-      const result = await dispatch(deleteSkill(skill._id))
-      if (result.payload.status === 200) {
-        dispatch(getSkills())
+      const result = await deleteSkill(skill._id)
+      if (result) {
         setEditInput(false)
       }
     },
-    [dispatch, skill]
+    [deleteSkill, skill]
   )
   return (
     <div className="flex justify-center items-center h-[30px]">
@@ -52,7 +56,7 @@ function Skill({ skill }) {
             width={20}
             height={20}
             className="cursor-pointer min-w-[12px] ml-[20px]"
-            onClick={(event) => handleUpdateSubmit(event)}
+            onClick={(event) => handleSubmit(event)}
           />
         </>
       ) : (
