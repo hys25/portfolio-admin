@@ -6,17 +6,13 @@ import "./index.css"
 import App from "./App"
 import reportWebVitals from "./reportWebVitals"
 import { store } from "./config/store"
-// import { ApiProvider } from "@reduxjs/toolkit/query/react"
-// import { projectsApi } from "./features/project/projectSlice";
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        {/* <ApiProvider api={projectsApi}> */}
         <App />
-        {/* </ApiProvider> */}
       </Provider>
     </BrowserRouter>
   </React.StrictMode>
