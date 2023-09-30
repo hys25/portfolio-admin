@@ -1,5 +1,6 @@
 import { useCallback } from "react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { Title } from "../../elements/Title"
@@ -37,8 +38,10 @@ function ProjectCreate() {
         formData.append(key, value)
       })
       const result = await addProject(formData).unwrap()
-      if (result) {
+      if (result._id) {
         navigate(`/project/${result._id}`)
+      } else {
+        toast.error(result.data.message)
       }
     },
     [navigate, addProject]

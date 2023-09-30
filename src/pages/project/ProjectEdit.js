@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { toast } from "react-toastify"
 import { REACT_APP_BE_HOST } from "../../config/index"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
@@ -55,12 +56,14 @@ function ProjectEdit() {
       const result = await editProject({
         projectId: project._id,
         projectData: formData,
-      }).unwrap()
-      if (result) {
+      })
+      if (result.data._id === currentProjectId) {
         navigate(`/project/${project._id}`)
+      } else {
+        toast.error(result.data.message)
       }
     },
-    [editProject, navigate, project._id]
+    [currentProjectId, editProject, navigate, project._id]
   )
   return (
     <DefaultContainer authorized>
