@@ -35,11 +35,12 @@ function AddSkill() {
     async (event) => {
       event.preventDefault()
       const result = await addSkill({ skill_name: newSkill })
-      if (result) {
-        navigate(`/skill`)
+      if (result.data._id) {
+        setNewSkill("")
+        setDisableSubmit(true)
       }
     },
-    [addSkill, navigate, newSkill]
+    [addSkill, newSkill]
   )
   useEffect(() => {
     const isUser = localStorage.getItem("user_token")
