@@ -1,11 +1,10 @@
 import { useCallback } from "react"
-import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useLocation } from "react-router-dom"
-import { logOut, reset } from "../features/auth/authSlice"
+import { logOut } from "../features/auth/authService"
 import Nav from "../elements/Nav"
 
 const dummyUser = {
-  name: "Halyna Pravdych",
+  name: "Halyna Yavtushenko",
   position: "frontend dev",
 }
 const dummyNav = [
@@ -44,15 +43,13 @@ const dummyNav = [
 function DefaultContainer({ authorized, ...props }) {
   const navigate = useNavigate()
   const location = useLocation()
-  const dispatch = useDispatch()
-  const { user } = useSelector((state) => state.auth)
+
   const activePage = location.pathname
 
   const onLogOut = useCallback(() => {
-    dispatch(reset())
-    dispatch(logOut())
+    logOut()
     navigate("/auth/sign-in")
-  }, [dispatch, navigate])
+  }, [navigate])
 
   return (
     <div className="flex w-screen h-screen bg-black py-[40px]">
@@ -65,16 +62,14 @@ function DefaultContainer({ authorized, ...props }) {
             <Nav navItems={dummyNav} activePage={activePage} />
           </div>
           <div className="flex flex-col ml-[50px]">
-            {user && (
-              <div
-                className="mb-3 font-bold uppercase cursor-pointer text-14"
-                onClick={onLogOut}
-                onKeyPress={onLogOut}
-                role="presentation"
-              >
-                Log out
-              </div>
-            )}
+            <div
+              className="mb-3 font-bold uppercase cursor-pointer text-14"
+              onClick={onLogOut}
+              onKeyPress={onLogOut}
+              role="presentation"
+            >
+              Log out
+            </div>
             <h2 className="font-bold uppercase text-14 text-grey">
               {dummyUser.position.replace(" ", "_")}
             </h2>
