@@ -22,7 +22,7 @@ function Skill({ skill }) {
         skillId: skill._id,
         skillData: { skill_name: skillValue },
       })
-      if (result) {
+      if (result.data._id === skill._id) {
         setEditInput(false)
       }
     },
@@ -32,7 +32,7 @@ function Skill({ skill }) {
     async (event) => {
       event.preventDefault()
       const result = await deleteSkill(skill._id)
-      if (result) {
+      if (result.data._id === skill._id) {
         setEditInput(false)
       }
     },
