@@ -1,26 +1,21 @@
 import { useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
-import { getMessages, reset } from "../../features/message/messageSlice"
+import { useGetAllMessagesQuery } from "../../features/message/messageApi"
 import { DateAndTime } from "../../elements/DateAndTime"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { Title } from "../../elements/Title"
 
 function Messages() {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { messages } = useSelector((state) => state.message)
+  const { messages } = useGetAllMessagesQuery()
+
   useEffect(() => {
     const isUser = localStorage.getItem("user_token")
     if (!isUser) {
       navigate("/auth/sign-in")
     }
-    dispatch(getMessages())
-    return () => {
-      dispatch(reset())
-    }
-  }, [navigate, dispatch])
+  }, [navigate])
   return (
     <DefaultContainer authorized>
       <ContentContainer>

@@ -25,18 +25,8 @@ const dummyNav = [
   },
   {
     id: 4,
-    name: "update cv",
-    slug: "/update-cv",
-  },
-  {
-    id: 5,
     name: "messages",
     slug: "/message",
-  },
-  {
-    id: 6,
-    name: "settings",
-    slug: "/settings",
   },
 ]
 

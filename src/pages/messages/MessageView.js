@@ -1,11 +1,9 @@
-import { useCallback, useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { useCallback, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import {
-  getMessage,
-  reset,
-  deleteMessage,
-} from "../../features/message/messageSlice"
+  useGetMessageQuery,
+  useDeleteMessageMutation,
+} from "../../features/message/messageApi"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { Button } from "../../elements/Button"
@@ -15,23 +13,21 @@ import { ReactComponent as ArrowBack } from "../../assets/icons/arrow-back.svg"
 
 function MessageView() {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const [openModal, setOpenModal] = useState(false)
-  const { message } = useSelector((state) => state.message)
+
   const { id: currentMessageId } = useParams()
-  useEffect(() => {
-    dispatch(getMessage(currentMessageId))
-    return () => {
-      dispatch(reset())
-    }
-  }, [navigate, dispatch, currentMessageId])
+  const { data: message } = useGetMessageQuery(currentMessageId)
+  const [deleteMessage] = useDeleteMessageMutation()
+
+  const [openModal, setOpenModal] = useState(false)
+
   const handleRemoveMessage = useCallback(async () => {
     setOpenModal(false)
-    const result = await dispatch(deleteMessage(currentMessageId))
-    if (result.payload.status === 200) {
+    const result = deleteMessage(currentMessageId)
+
+    if (result.data._id === currentMessageId) {
       navigate("/message")
     }
-  }, [dispatch, navigate, currentMessageId])
+  }, [deleteMessage, currentMessageId, navigate])
   return (
     <DefaultContainer authorized>
       <ContentContainer>
