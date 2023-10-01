@@ -5,6 +5,7 @@ import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { Title } from "../../elements/Title"
 import { REACT_APP_BE_HOST } from "../../config/index"
+import { LSService } from "../../features/auth/localStorageService"
 
 const MAIN_IMAGE_PLACEHOLDER =
   "https://blog.hubspot.com/hubfs/Team%20deciding%20on%20membership%20website%20builder.jpg"
@@ -13,7 +14,7 @@ function Projects() {
   const navigate = useNavigate()
   const { data: projects } = useGetAllProjectsQuery()
   useEffect(() => {
-    const isUser = localStorage.getItem("user_token")
+    const isUser = LSService.getToken()
     if (!isUser) {
       navigate("/auth/sign-in")
     }

@@ -6,7 +6,6 @@ const CURRENT_SLICE_ROUTE = "/project"
 export const projectsApi = createApi({
   reducerPath: "projectsApi",
   baseQuery: fetchBaseQuery({ baseUrl: instance.defaults.baseURL }),
-  // tagTypes: ["Projects"],
   endpoints: (builder) => ({
     getAllProjects: builder.query({
       query: () => CURRENT_SLICE_ROUTE,

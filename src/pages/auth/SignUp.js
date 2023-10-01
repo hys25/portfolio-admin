@@ -1,13 +1,14 @@
-import { useEffect, useCallback } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { useCallback } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import { signUp, reset } from "../../features/auth/authSlice"
+import { useSignUpMutation } from "../../features/auth/authApi"
 import DefaultContainer from "../../layout/DefaultContainer"
 import { StyledInput, PasswordInput } from "../../elements/Input"
 import { Button } from "../../elements/Button"
 import Spinner from "../../layout/Spinner"
 import useForm from "../../hooks/useForm"
+import { Title } from "../../elements/Title"
+import { LSService } from "../../features/auth/localStorageService"
 
 function SignUp() {
   const { formDataValue, onChange } = useForm({
@@ -17,33 +18,24 @@ function SignUp() {
     password2: "",
   })
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
-  const { user, isLoading, isSuccess, isError, message } = useSelector(
-    (state) => state.auth
-  )
-
-  useEffect(() => {
-    if (isError) {
-      toast.error(message)
-    }
-    if (isSuccess || user) {
-      navigate("/")
-    }
-    dispatch(reset())
-  }, [user, isError, isSuccess, message, navigate, dispatch])
+  const [signUp, { isLoading }] = useSignUpMutation()
 
   const onSubmit = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault()
 
       if (formDataValue.password !== formDataValue.password2) {
         toast.error("Passwords do not match")
       } else {
-        dispatch(signUp(formDataValue))
+        await signUp(formDataValue)
+        const userLS = LSService.getToken()
+        if (userLS) {
+          navigate("/")
+        }
       }
     },
-    [dispatch, formDataValue]
+    [formDataValue, navigate, signUp]
   )
 
   if (isLoading) {
@@ -53,6 +45,7 @@ function SignUp() {
   return (
     <DefaultContainer>
       <form onSubmit={onSubmit} className="m-auto w-full max-w-[400px]">
+        <Title className="text-center mb-[50px]">Create admin account</Title>
         <StyledInput
           value={formDataValue.username}
           name="username"

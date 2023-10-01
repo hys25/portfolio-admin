@@ -1,14 +1,14 @@
-import { useEffect, useState, useCallback } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { useState, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
-import { signIn, reset } from "../../features/auth/authSlice"
+import { useSignInMutation } from "../../features/auth/authApi"
 import DefaultContainer from "../../layout/DefaultContainer"
 import { StyledInput, PasswordInput } from "../../elements/Input"
 import { Checkbox } from "../../elements/Checkbox"
 import { Button, StyledLink } from "../../elements/Button"
 import Spinner from "../../layout/Spinner"
 import useForm from "../../hooks/useForm"
+import { Title } from "../../elements/Title"
+import { LSService } from "../../features/auth/localStorageService"
 
 function SignIn() {
   const { onChange, formDataValue } = useForm({
@@ -17,30 +17,19 @@ function SignIn() {
   })
   const [rememberUser, setRememberUser] = useState(false)
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
-  const { user, isLoading, isSuccess, isError, message } = useSelector(
-    (state) => state.auth
-  )
-
-  useEffect(() => {
-    const userLS = localStorage.getItem("user_token")
-
-    if (isError) {
-      toast.error(message)
-    }
-    if (isSuccess || userLS) {
-      navigate("/")
-    }
-    dispatch(reset())
-  }, [user, isError, isSuccess, message, navigate, dispatch])
+  const [signIn, { isLoading }] = useSignInMutation()
 
   const onSubmit = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault()
-      dispatch(signIn(formDataValue))
+      await signIn(formDataValue)
+      const userLS = LSService.getToken()
+      if (userLS) {
+        navigate("/")
+      }
     },
-    [dispatch, formDataValue]
+    [formDataValue, navigate, signIn]
   )
 
   if (isLoading) {
@@ -50,6 +39,7 @@ function SignIn() {
   return (
     <DefaultContainer>
       <form onSubmit={onSubmit} className="m-auto w-full max-w-[400px]">
+        <Title className="text-center mb-[50px]">Sign in to your account</Title>
         <StyledInput
           value={formDataValue.email}
           onChange={onChange}

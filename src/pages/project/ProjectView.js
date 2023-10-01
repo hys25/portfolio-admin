@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { toast } from "react-toastify"
 import {
   useGetProjectQuery,
   useDeleteProjectMutation,
@@ -32,8 +31,6 @@ function ProjectView() {
     const result = await deleteProject(currentProjectId)
     if (result.data.id === currentProjectId) {
       navigate("/")
-    } else {
-      toast.error("Project was deleted")
     }
   }, [deleteProject, currentProjectId, navigate])
   return (

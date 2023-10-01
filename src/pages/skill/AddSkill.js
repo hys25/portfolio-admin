@@ -10,6 +10,7 @@ import Skill from "../../layout/Skill"
 import { Title } from "../../elements/Title"
 import { StyledInput } from "../../elements/Input"
 import { Button } from "../../elements/Button"
+import { LSService } from "../../features/auth/localStorageService"
 
 function AddSkill() {
   const navigate = useNavigate()
@@ -43,7 +44,7 @@ function AddSkill() {
     [addSkill, newSkill]
   )
   useEffect(() => {
-    const isUser = localStorage.getItem("user_token")
+    const isUser = LSService.getToken()
     if (!isUser) {
       navigate("/auth/sign-in")
     }
