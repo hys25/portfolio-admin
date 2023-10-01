@@ -17,6 +17,6 @@ export const LSService = {
     localStorage.removeItem(TOKEN_KEY)
   },
   getToken: () => {
-    localStorage.getItem(TOKEN_KEY)
+    return localStorage.getItem(TOKEN_KEY)
   },
 }
