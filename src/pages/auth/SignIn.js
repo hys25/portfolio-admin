@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react"
 import { useNavigate } from "react-router-dom"
-import { useSignInMutation } from "../../features/auth/authService"
+import { useSignInMutation } from "../../features/auth/authApi"
 import DefaultContainer from "../../layout/DefaultContainer"
 import { StyledInput, PasswordInput } from "../../elements/Input"
 import { Checkbox } from "../../elements/Checkbox"
@@ -8,6 +8,7 @@ import { Button, StyledLink } from "../../elements/Button"
 import Spinner from "../../layout/Spinner"
 import useForm from "../../hooks/useForm"
 import { Title } from "../../elements/Title"
+import { LSService } from "../../features/auth/localStorageService"
 
 function SignIn() {
   const { onChange, formDataValue } = useForm({
@@ -23,7 +24,7 @@ function SignIn() {
     async (e) => {
       e.preventDefault()
       await signIn(formDataValue)
-      const userLS = localStorage.getItem("user_token")
+      const userLS = LSService.getToken()
       if (userLS) {
         navigate("/")
       }

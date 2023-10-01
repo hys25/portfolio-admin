@@ -5,13 +5,14 @@ import { DateAndTime } from "../../elements/DateAndTime"
 import DefaultContainer from "../../layout/DefaultContainer"
 import ContentContainer from "../../layout/ContentContainer"
 import { Title } from "../../elements/Title"
+import { LSService } from "../../features/auth/localStorageService"
 
 function Messages() {
   const navigate = useNavigate()
   const { messages } = useGetAllMessagesQuery()
 
   useEffect(() => {
-    const isUser = localStorage.getItem("user_token")
+    const isUser = LSService.getToken()
     if (!isUser) {
       navigate("/auth/sign-in")
     }

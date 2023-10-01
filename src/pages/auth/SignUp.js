@@ -1,13 +1,14 @@
 import { useCallback } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import { useSignUpMutation } from "../../features/auth/authService"
+import { useSignUpMutation } from "../../features/auth/authApi"
 import DefaultContainer from "../../layout/DefaultContainer"
 import { StyledInput, PasswordInput } from "../../elements/Input"
 import { Button } from "../../elements/Button"
 import Spinner from "../../layout/Spinner"
 import useForm from "../../hooks/useForm"
 import { Title } from "../../elements/Title"
+import { LSService } from "../../features/auth/localStorageService"
 
 function SignUp() {
   const { formDataValue, onChange } = useForm({
@@ -28,7 +29,7 @@ function SignUp() {
         toast.error("Passwords do not match")
       } else {
         await signUp(formDataValue)
-        const userLS = localStorage.getItem("user_token")
+        const userLS = LSService.getToken()
         if (userLS) {
           navigate("/")
         }

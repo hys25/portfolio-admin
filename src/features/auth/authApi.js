@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { toast } from "react-toastify"
 import instance from "../apiInstance"
+import { LSService } from "./localStorageService"
 
 const CURRENT_SLICE_ROUTE = "/auth/"
 
@@ -16,15 +16,8 @@ export const authApi = createApi({
           body: userData,
         }
       },
-      async onQueryStarted(id, { queryFulfilled }) {
-        try {
-          const { data: response } = await queryFulfilled
-          if (response.token) {
-            localStorage.setItem("user_token", JSON.stringify(response.token))
-          }
-        } catch (err) {
-          toast.error(err)
-        }
+      async onQueryStarted(_, { queryFulfilled }) {
+        LSService.setToken(queryFulfilled)
       },
     }),
     signIn: builder.mutation({
@@ -35,22 +28,11 @@ export const authApi = createApi({
           body: userData,
         }
       },
-      async onQueryStarted(id, { queryFulfilled }) {
-        try {
-          const { data: response } = await queryFulfilled
-          if (response.token) {
-            localStorage.setItem("user_token", JSON.stringify(response.token))
-          }
-        } catch (err) {
-          toast.error(err)
-        }
+      async onQueryStarted(_, { queryFulfilled }) {
+        LSService.setToken(queryFulfilled)
       },
     }),
   }),
 })
-
-export const logOut = () => {
-  localStorage.removeItem("user_token")
-}
 
 export const { useSignUpMutation, useSignInMutation } = authApi

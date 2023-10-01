@@ -1,6 +1,6 @@
 import { useCallback } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import { logOut } from "../features/auth/authService"
+import { LSService } from "../features/auth/localStorageService"
 import Nav from "../elements/Nav"
 
 const dummyUser = {
@@ -37,7 +37,7 @@ function DefaultContainer({ authorized, ...props }) {
   const activePage = location.pathname
 
   const onLogOut = useCallback(() => {
-    logOut()
+    LSService.removeToken()
     navigate("/auth/sign-in")
   }, [navigate])
 

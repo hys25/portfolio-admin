@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { projectsApi } from "../features/project/projectApi"
 import { skillsApi } from "../features/skill/skillsApi"
-import { authApi } from "../features/auth/authService"
+import { authApi } from "../features/auth/authApi"
 import { messageApi } from "../features/message/messageApi"
 import { rtkQueryErrorLogger } from "./errorHandlerMiddeware"
 
